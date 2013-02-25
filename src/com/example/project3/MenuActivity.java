@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,7 +27,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 	private static final String TAG = "MenuActivity";
 		  ListView lv;
 		  EditText et;
-		  String listview_array[] = { "Alex Hoffman", "John Jacob Jinglehimerschmit", "Fake Name" };
+		  String listview_array[] = { "Alex Hoffman", "John Jacob Jinglehimerschmit", "Fake Name", "A", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p" };
 		  ArrayList<String> array_sort= new ArrayList<String>();
 		  int textlength=0;
 		
@@ -50,7 +51,10 @@ public class MenuActivity extends Activity implements OnClickListener {
 					long id) {
 				Object obj = lv.getAdapter().getItem(position);
 				String str = obj.toString();
-				//Toast.makeText(this, "You chose"+ str, Toast.LENGTH_LONG).show();			
+				Toast.makeText(getApplicationContext(), "You chose "+ str, Toast.LENGTH_LONG).show();	
+				Intent intent = new Intent(getBaseContext(), GraphingActivity.class);
+				intent.putExtra("userName", str);
+				startActivity(intent);
 			}
 		});
 		et.addTextChangedListener(new TextWatcher()
