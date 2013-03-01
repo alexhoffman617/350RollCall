@@ -69,9 +69,18 @@ public class MenuActivity extends Activity implements OnClickListener {
 				Object obj = lv.getAdapter().getItem(position);
 				String str = obj.toString();
 				Toast.makeText(getApplicationContext(), "You chose "+ str, Toast.LENGTH_LONG).show();	
-				Intent intent = new Intent(getBaseContext(), GraphingActivity.class);
+				
+				if(listType.equals("Student")){
+				Intent intent = new Intent(getBaseContext(), StudentGraphingActivity.class);
 				intent.putExtra("userName", str);
 				startActivity(intent);
+				}
+				
+				if(listType.equals("Activity")){
+					Intent intent = new Intent(getBaseContext(), ActivityGraphingActivity.class);
+					intent.putExtra("ActivityType", str);
+					startActivity(intent);
+				}
 			}
 		});
 		et.addTextChangedListener(new TextWatcher()
@@ -115,9 +124,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 						}}}
 		                                                                                }
 		                                                                }
-		lv.setAdapter(new ArrayAdapter<String>
-		(MenuActivity.this,
-		android.R.layout.simple_list_item_1, array_sort));
+		lv.setAdapter(new ArrayAdapter<String>(MenuActivity.this,android.R.layout.simple_list_item_1, array_sort));
 		;
 		}
 		});

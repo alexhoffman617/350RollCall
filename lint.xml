@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="NewApi">
+        <ignore path="src/com/example/project3/ActivityGraphingActivity.java" />
+        <ignore path="src/com/example/project3/AgregateGraphingActivity.java" />
         <ignore path="src/com/example/project3/GraphingActivity.java" />
+        <ignore path="src/com/example/project3/StudentGraphingActivity.java" />
     </issue>
 </lint>

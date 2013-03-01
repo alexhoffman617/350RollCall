@@ -41,7 +41,7 @@ public class MainMenuActivity extends Activity{
 	public void onAggregateBtnClick(View arg0) {
 		
 		
-		Intent intent = new Intent(this, GraphingActivity.class);
+		Intent intent = new Intent(this, StudentGraphingActivity.class);
 		intent.putExtra("ButtonClicked", "Aggregate" );
 		startActivity(intent);		
 	}
