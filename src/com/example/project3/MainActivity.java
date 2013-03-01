@@ -23,7 +23,7 @@ public class MainActivity extends Activity implements OnClickListener{
 
 	@Override
 	public void onClick(View arg0) {
-		Intent intent = new Intent(this, MenuActivity.class);
+		Intent intent = new Intent(this, MainMenuActivity.class);
 		startActivity(intent);
 	}
 

@@ -4,5 +4,7 @@
     <string name="app_name">project3</string>
     <string name="hello_world">Hello world!</string>
     <string name="menu_settings">Settings</string>
+    <string name="Login_Page">Login Page</string>
+    <string name="Roll_Call_Visualization">Roll Call Visualization</string>
 
 </resources>
