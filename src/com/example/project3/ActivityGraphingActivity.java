@@ -105,7 +105,7 @@ public class ActivityGraphingActivity extends Activity {
 	
 	public void onStudentsBtnClick(View arg0){
 		Intent intent = new Intent(this, StudentsInActivityActivity.class);
-		intent.putExtra("Activity", activity);
+		intent.putExtra("ActivityType", activity);
 		startActivity(intent);
 	}
 	

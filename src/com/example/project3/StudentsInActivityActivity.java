@@ -62,7 +62,7 @@ public class StudentsInActivityActivity extends Activity {
 		android.R.layout.simple_list_item_1, listview_array));
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-		     listType = extras.getString("Activity");
+		     listType = extras.getString("ActivityType");
 		 
 		}
 		
@@ -108,7 +108,7 @@ public class StudentsInActivityActivity extends Activity {
 		lv.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
-			public void onItemClick(AdapterView<?> l, View v, int position, //ListView l, View v, int position, long id
+			public void onItemClick(AdapterView<?> l, View v, int position, 
 					long id) {
 				Object obj = lv.getAdapter().getItem(position);
 				String str = obj.toString();
@@ -120,7 +120,7 @@ public class StudentsInActivityActivity extends Activity {
 				startActivity(intent);
 				}
 				
-				if(listType.equals("Activity")){
+				if(listType.equals("ActivityType")){
 					Intent intent = new Intent(getBaseContext(), ActivityGraphingActivity.class);
 					intent.putExtra("ActivityType", str);
 					startActivity(intent);
@@ -131,7 +131,6 @@ public class StudentsInActivityActivity extends Activity {
 		{
 		public void afterTextChanged(Editable s)
 		{
-		                                                                // Abstract Method of TextWatcher Interface.
 		}
 		public void beforeTextChanged(CharSequence s,
 		int start, int count, int after)
@@ -181,7 +180,7 @@ public class StudentsInActivityActivity extends Activity {
 	
 	public void onGraphBtnClick(View v) {
 		Intent intent = new Intent(this, ActivityGraphingActivity.class);
-		intent.putExtra("Activity", listType);
+		intent.putExtra("ActivityType", listType);
 		startActivity(intent);
 	}
 
