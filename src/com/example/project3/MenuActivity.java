@@ -3,6 +3,13 @@ package com.example.project3;
 
 
 import java.util.ArrayList;
+import java.util.List;
+
+import com.parse.FindCallback;
+import com.parse.Parse;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.PushService;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
@@ -29,24 +36,57 @@ public class MenuActivity extends Activity implements OnClickListener {
 	private static final String TAG = "MenuActivity";
 		  ListView lv;
 		  EditText et;
-		  String listview_array[] = { "Alex Hoffman", "John Jacob Jinglehimerschmit", "Fake Name", "A", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p" };
+		  String listview_array[] = { " " };
+		  String listview_array2[] = {" "};
 		  ArrayList<String> array_sort= new ArrayList<String>();
 		  int textlength=0;
 		  
 		  TextView title;
-		
-		  
 		  
 		  String listType;
 		
-		
-
-	
+	private void initializeParse(){
+		Parse.initialize(this, "cuoXWbqvBKs8SUrhnyKdyNWiMPZxuDBZ31ehltVI", "tl8VMcFHu7u3haym9KSbRKEP61MmxPDvmL06dxeo");
+	}
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu);
+		initializeParse();
+
+		
+		
+		
+		
+		//FOR STUDENTS
+		
+		ParseQuery query = new ParseQuery("Computer");
+		query.findInBackground(new FindCallback() {
+			public void done(List<ParseObject> objects, com.parse.ParseException e) {
+				if (e == null) {
+					listview_array2= new String[objects.size()];
+		        	 for (int i = 0; i < objects.size(); i++){
+		        		 System.out.println(objects.get(i));
+		        		 ParseObject temp = objects.get(i);
+		        		 String user = temp.getString("Name");
+		        		 listview_array2[i] = user;
+		        	 }
+		        	 listview_array = listview_array2;
+		        	 //Wont fill unless some action is made
+		        	 
+		        	 
+		         } else {
+		        	 return;
+		         }				
+			}
+		});
+		
+		
+		//MAKE ANOTHER FOR ACTIVITIES
+		
+		
+		
 		
 		lv = (ListView) findViewById(R.id.ListView01);
 		et = (EditText) findViewById(R.id.EditText01);

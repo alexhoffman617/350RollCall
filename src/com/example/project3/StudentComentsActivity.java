@@ -5,14 +5,16 @@ import java.util.Calendar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class AgregateGraphingActivity extends Activity {
+public class StudentComentsActivity extends Activity {
 	String userName = "";
 	private static final String TAG = "MenuActivity";
 	private DatePicker graphStartDate;
@@ -26,17 +28,22 @@ public class AgregateGraphingActivity extends Activity {
 	private int endMonth;
 	private int endYear;
 	
-	private TextView school;
+	private TextView nameDisplay;
+	
 	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.agregategraphing);
+		setContentView(R.layout.studentcomments);
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		     userName = extras.getString("userName");
+		}
 
 	
-	school = (TextView) findViewById(R.id.schoolName);
-	school.setText("Agregate Data");
+		nameDisplay =(TextView) findViewById(R.id.nameDisplay);
+		nameDisplay.setText(userName);
 	
 	
 	
@@ -83,6 +90,12 @@ public class AgregateGraphingActivity extends Activity {
 	
 	graphStartDate.setCalendarViewShown(false);
 	
+	}
+	
+	public void onGraphBtnClick(View arg0){
+		Intent intent = new Intent(this, StudentGraphingActivity.class);
+		intent.putExtra("userName", userName);
+		startActivity(intent);		
 	}
 	
 	

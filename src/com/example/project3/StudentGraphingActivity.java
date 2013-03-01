@@ -5,8 +5,10 @@ import java.util.Calendar;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.TextView;
@@ -38,8 +40,7 @@ public class StudentGraphingActivity extends Activity {
 		if (extras != null) {
 		     userName = extras.getString("userName");
 		}
-		Toast.makeText(getApplicationContext(), userName, Toast.LENGTH_LONG).show();
-		Log.d(TAG, userName);
+
 	
 		nameDisplay =(TextView) findViewById(R.id.nameDisplay);
 		nameDisplay.setText(userName);
@@ -91,6 +92,10 @@ public class StudentGraphingActivity extends Activity {
 	
 	}
 	
-	
+	public void onCommentsBtnClick(View arg0){
+		Intent intent = new Intent(this, StudentComentsActivity.class);
+		intent.putExtra("userName", userName);
+		startActivity(intent);		
+	}
 
 }

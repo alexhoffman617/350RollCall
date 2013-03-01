@@ -3,12 +3,31 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    
+  
+     
+     -->
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="horizontal"
      >
+     
+       <TextView
+        android:id= "@+id/nameDisplay"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        />
+    
+     <Button
+        	android:id="@+id/graph"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:onClick="onGraphBtnClick"
+        	android:layout_alignParentRight="true"
+        	android:text="Graph" 
+        	/>
+    
             <DatePicker
             android:id="@+id/graphDateEnd"
             android:layout_width="wrap_content"
@@ -22,20 +41,13 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true" 
         android:layout_alignParentRight="true"/>
+
         
-          <TextView
-        android:id= "@+id/schoolName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_centerInParent="true"
-       android:layout_alignParentTop = "true"
-        />
-        
-        <TableLayout
+         <TableLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_below="@+id/schoolName" 
+            android:layout_below="@+id/comments" 
             >
 
 
@@ -72,8 +84,6 @@
 
 
         </TableLayout>
-        
-
 
             
             </RelativeLayout>

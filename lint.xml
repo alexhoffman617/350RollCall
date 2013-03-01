@@ -4,6 +4,7 @@
         <ignore path="src/com/example/project3/ActivityGraphingActivity.java" />
         <ignore path="src/com/example/project3/AgregateGraphingActivity.java" />
         <ignore path="src/com/example/project3/GraphingActivity.java" />
+        <ignore path="src/com/example/project3/StudentComentsActivity.java" />
         <ignore path="src/com/example/project3/StudentGraphingActivity.java" />
     </issue>
 </lint>
