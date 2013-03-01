@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class StudentComentsActivity extends Activity {
-	String userName = "";
+	String userName;
 	private static final String TAG = "MenuActivity";
 	private DatePicker graphStartDate;
 	private DatePicker graphEndDate;
@@ -50,7 +50,8 @@ public class StudentComentsActivity extends Activity {
 	graphEndDate = (DatePicker) findViewById(R.id.graphDateEnd);
 	
 	
-	final Calendar c = Calendar.getInstance();
+	final Calendar c; 
+	c = Calendar.getInstance();
 	endYear = c.get(Calendar.YEAR);
 	endMonth = c.get(Calendar.MONTH);
 	endDay = c.get(Calendar.DAY_OF_MONTH);
@@ -70,7 +71,8 @@ public class StudentComentsActivity extends Activity {
 	graphStartDate = (DatePicker) findViewById(R.id.graphDateStart);
 	
 	
-	final Calendar c2 = Calendar.getInstance();
+	final Calendar c2; 
+	c2 = Calendar.getInstance();
 
 	c2.add(c2.DAY_OF_MONTH, -7);
 

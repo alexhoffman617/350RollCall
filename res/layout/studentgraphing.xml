@@ -44,6 +44,7 @@
 
         
          <TableLayout
+            android:id="@+id/fullTable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
@@ -85,6 +86,20 @@
 
         </TableLayout>
 
+         
+         <LinearLayout
+
+             android:id="@+id/chart"
+
+             android:layout_width="fill_parent"
+
+             android:layout_height="300dp"
+
+             android:orientation="horizontal" 
+
+             android:layout_below="@id/fullTable"
+
+           />
             
             </RelativeLayout>
 

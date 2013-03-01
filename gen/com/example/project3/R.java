@@ -21,14 +21,16 @@ public final class R {
         public static final int activityDisplay=0x7f070002;
         public static final int aggregateButton=0x7f07000c;
         public static final int button=0x7f070001;
+        public static final int chart=0x7f070015;
         public static final int comments=0x7f070013;
+        public static final int fullTable=0x7f070014;
         public static final int graph=0x7f070012;
         public static final int graphDateEnd=0x7f070004;
         public static final int graphDateStart=0x7f070005;
         public static final int lblTextViewOne=0x7f070007;
         public static final int listType=0x7f07000e;
         public static final int loginText=0x7f070000;
-        public static final int menu_settings=0x7f070014;
+        public static final int menu_settings=0x7f070016;
         public static final int nameDisplay=0x7f070011;
         public static final int schoolName=0x7f070009;
         public static final int studentButton=0x7f07000a;
