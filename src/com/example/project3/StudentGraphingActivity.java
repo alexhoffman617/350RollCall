@@ -11,6 +11,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.LinearLayout;
@@ -18,7 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class StudentGraphingActivity extends Activity {
-	String userName = "";
+	public String userName = " ";
 	private static final String TAG = "MenuActivity";
 	private DatePicker graphStartDate;
 	private DatePicker graphEndDate;
@@ -48,7 +50,7 @@ public class StudentGraphingActivity extends Activity {
 		nameDisplay =(TextView) findViewById(R.id.nameDisplay);
 		nameDisplay.setText(userName);
 	
-	
+
 		
 		BarGraph bar = new BarGraph();
 
@@ -105,10 +107,14 @@ public class StudentGraphingActivity extends Activity {
 	
 	}
 	
+	
+	
 	public void onCommentsBtnClick(View arg0){
 		Intent intent = new Intent(this, StudentComentsActivity.class);
 		intent.putExtra("userName", userName);
 		startActivity(intent);		
 	}
+
+
 
 }

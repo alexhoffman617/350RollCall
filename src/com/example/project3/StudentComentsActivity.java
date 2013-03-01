@@ -11,6 +11,9 @@ import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.DatePicker.OnDateChangedListener;
+import android.widget.ArrayAdapter;
+import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +32,9 @@ public class StudentComentsActivity extends Activity {
 	private int endYear;
 	
 	private TextView nameDisplay;
-	
+	private ListView lv;
+	private EditText et;
+	private String listview_array[] = {"8/7/12 - Heres a sample comment", "7/6/12 - Heres a different sample comment", "5/12/12 - A third sample comment"};
 	
 	
 	@Override
@@ -91,6 +96,16 @@ public class StudentComentsActivity extends Activity {
 	});
 	
 	graphStartDate.setCalendarViewShown(false);
+	
+	
+	
+	lv = (ListView) findViewById(R.id.comments);
+	et = (EditText) findViewById(R.id.EditText01);
+	lv.setAdapter(new ArrayAdapter<String>(this,
+	android.R.layout.simple_list_item_1, listview_array));
+	
+	
+	
 	
 	}
 	

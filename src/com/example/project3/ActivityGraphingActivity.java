@@ -3,11 +3,14 @@ package com.example.project3;
 
 import java.util.Calendar;
 
+import org.achartengine.GraphicalView;
+
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.DatePicker;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.DatePicker.OnDateChangedListener;
 import android.widget.Toast;
@@ -44,7 +47,13 @@ public class ActivityGraphingActivity extends Activity {
 		activityDisplay.setText(activity);
 	
 	
-	
+		BarGraph bar = new BarGraph();
+
+		GraphicalView gview = bar.getView(this);
+
+		LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+
+		layout.addView(gview);
 	
 	
 	graphEndDate = (DatePicker) findViewById(R.id.graphDateEnd);

@@ -44,10 +44,11 @@
 
         
          <TableLayout
+              android:id="@+id/fullTable"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_below="@+id/comments" 
+            android:layout_below="@+id/graph" 
             >
 
 
@@ -85,7 +86,17 @@
 
         </TableLayout>
 
-            
+            <ListView 
+            android:id="@+id/comments"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content" 
+			android:layout_centerInParent="true"
+             android:orientation="horizontal" 
+             android:layout_below="@id/fullTable"
+             android:layout_above= "@+id/graphDateStart"
+
+           />
+
             </RelativeLayout>
 
 </LinearLayout>

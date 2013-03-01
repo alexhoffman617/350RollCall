@@ -50,17 +50,25 @@ public class MenuActivity extends Activity implements OnClickListener {
 	}
 	
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.menu);
 		initializeParse();
 
 		
-		
+		lv = (ListView) findViewById(R.id.ListView01);
+		et = (EditText) findViewById(R.id.EditText01);
+		lv.setAdapter(new ArrayAdapter<String>(this,
+		android.R.layout.simple_list_item_1, listview_array));
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		     listType = extras.getString("ButtonClicked");
+		 
+		}
 		
 		
 		//FOR STUDENTS
-		
+		if(listType.equals( "Student")){
 		ParseQuery query = new ParseQuery("Computer");
 		query.findInBackground(new FindCallback() {
 			public void done(List<ParseObject> objects, com.parse.ParseException e) {
@@ -82,21 +90,17 @@ public class MenuActivity extends Activity implements OnClickListener {
 			}
 		});
 		
-		
-		//MAKE ANOTHER FOR ACTIVITIES
-		
-		
-		
-		
-		lv = (ListView) findViewById(R.id.ListView01);
-		et = (EditText) findViewById(R.id.EditText01);
-		lv.setAdapter(new ArrayAdapter<String>(this,
-		android.R.layout.simple_list_item_1, listview_array));
-		Bundle extras = getIntent().getExtras();
-		if (extras != null) {
-		     listType = extras.getString("ButtonClicked");
-		 
 		}
+		//MAKE ANOTHER FOR ACTIVITIES
+		else if(listType.equals("Activity")){
+			 
+			String listview_array2[]={"Computer", "Gym", "Reading", "Arts and Crafts"};
+			listview_array = listview_array2;
+		}
+		
+		
+		
+	
 		
 		 title =(TextView)findViewById(R.id.listType);
 		 title.setText(listType);
