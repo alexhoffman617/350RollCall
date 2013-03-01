@@ -17,8 +17,10 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -30,6 +32,12 @@ public class MenuActivity extends Activity implements OnClickListener {
 		  String listview_array[] = { "Alex Hoffman", "John Jacob Jinglehimerschmit", "Fake Name", "A", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p" };
 		  ArrayList<String> array_sort= new ArrayList<String>();
 		  int textlength=0;
+		  
+		  TextView title;
+		
+		  
+		  
+		  String listType;
 		
 		
 
@@ -44,6 +52,15 @@ public class MenuActivity extends Activity implements OnClickListener {
 		et = (EditText) findViewById(R.id.EditText01);
 		lv.setAdapter(new ArrayAdapter<String>(this,
 		android.R.layout.simple_list_item_1, listview_array));
+		Bundle extras = getIntent().getExtras();
+		if (extras != null) {
+		     listType = extras.getString("ButtonClicked");
+		 
+		}
+		
+		 title =(TextView)findViewById(R.id.listType);
+		 title.setText(listType);
+		
 		lv.setOnItemClickListener(new OnItemClickListener(){
 
 			@Override
@@ -121,15 +138,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 
 	
-	/*
-	protected void onClick(ListView l, View v, int position, long id) {
-		// TODO Auto-generated method stub
-		super.onListItemClick(l, v, position, id);
-		Object obj = this.getListAdapter().getItem(position);
-		String str = obj.toString();
-		Toast.makeText(this, "You chose"+ str, Toast.LENGTH_LONG).show();
-		
-	}*/
+
 	}
         
         

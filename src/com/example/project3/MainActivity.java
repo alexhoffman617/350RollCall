@@ -27,9 +27,7 @@ public class MainActivity extends Activity implements OnClickListener{
 		btn=(Button)findViewById(R.id.button);
 		btn.setOnClickListener((OnClickListener) this);
 		
-		ParseObject testObject = new ParseObject("TestObject");
-		testObject.put("foo", "bar");
-		testObject.saveInBackground();
+
 	}
 
 	@Override
