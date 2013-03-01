@@ -15,6 +15,7 @@ public final class R {
     }
     public static final class id {
         public static final int EditText01=0x7f070011;
+        public static final int Graph=0x7f070016;
         public static final int LinearLayout01=0x7f07000f;
         public static final int ListView01=0x7f070012;
         public static final int activityButton=0x7f07000d;
@@ -30,7 +31,7 @@ public final class R {
         public static final int lblTextViewOne=0x7f070008;
         public static final int listType=0x7f070010;
         public static final int loginText=0x7f070000;
-        public static final int menu_settings=0x7f070016;
+        public static final int menu_settings=0x7f070017;
         public static final int nameDisplay=0x7f070013;
         public static final int schoolName=0x7f07000b;
         public static final int studentButton=0x7f07000c;
@@ -47,6 +48,7 @@ public final class R {
         public static final int shape=0x7f030005;
         public static final int studentcomments=0x7f030006;
         public static final int studentgraphing=0x7f030007;
+        public static final int studentsinactivity=0x7f030008;
     }
     public static final class menu {
         public static final int activity_main=0x7f060000;

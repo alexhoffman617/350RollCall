@@ -85,6 +85,7 @@
              android:orientation="horizontal" 
 
              android:layout_below="@id/fullTable"
+             android:layout_above= "@+id/graphDateStart"
 
            />
 

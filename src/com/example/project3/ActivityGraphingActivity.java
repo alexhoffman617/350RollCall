@@ -7,8 +7,10 @@ import org.achartengine.GraphicalView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.DatePicker;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -101,6 +103,11 @@ public class ActivityGraphingActivity extends Activity {
 	
 	}
 	
+	public void onStudentsBtnClick(View arg0){
+		Intent intent = new Intent(this, StudentsInActivityActivity.class);
+		intent.putExtra("Activity", activity);
+		startActivity(intent);
+	}
 	
 
 }

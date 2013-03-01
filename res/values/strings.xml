@@ -6,7 +6,7 @@
     <string name="menu_settings">Settings</string>
     <string name="Login_Page">Login Page</string>
     <string name="Roll_Call_Visualization">Roll Call Visualization</string>
-    <string name="table_row_value1">Table Row Value 1 askfjs</string>
+    <string name="table_row_value1">Table Row Value 1</string>
     <string name = "table_row_value2">Table Row Value 2</string>
 
 </resources>

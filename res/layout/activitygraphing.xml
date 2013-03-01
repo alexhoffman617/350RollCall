@@ -82,19 +82,14 @@
 
 
         </TableLayout>
-
+        
               <LinearLayout
-
              android:id="@+id/chart"
-
              android:layout_width="fill_parent"
-
              android:layout_height="300dp"
-
              android:orientation="horizontal" 
-
              android:layout_below="@id/fullTable"
-
+             android:layout_above= "@+id/graphDateStart"
            />   
          
             </RelativeLayout>
