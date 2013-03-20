@@ -51,9 +51,12 @@ public class StudentGraphingActivity extends Activity {
 		nameDisplay.setText(userName);
 	
 
-		
+		int[] yData = {124, 135 , 413, 356, 234, 123, 342, 134, 123, 643, 234, 274};
+		String[] xData = {"2/1", "2/2", "2/3", "2/4", "2/5", "2/8", "2/9", "2/10", "2/11", "2/12", "2/14", "2/15"};
 		BarGraph bar = new BarGraph();
 
+		bar.setData(yData, xData);
+		
 		GraphicalView gview = bar.getView(this);
 
 		LinearLayout layout = (LinearLayout) findViewById(R.id.chart);

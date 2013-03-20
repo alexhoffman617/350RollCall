@@ -58,8 +58,10 @@ public class MenuActivity extends Activity implements OnClickListener {
 		
 		lv = (ListView) findViewById(R.id.ListView01);
 		et = (EditText) findViewById(R.id.EditText01);
-		lv.setAdapter(new ArrayAdapter<String>(this,
-		android.R.layout.simple_list_item_1, listview_array));
+		 final ArrayAdapter<String> aAdapter = new  ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+		 final ArrayAdapter<String> aAdapter2 = new  ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, listview_array2);
+			lv.setAdapter(aAdapter);
+		lv.setAdapter(aAdapter);
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 		     listType = extras.getString("ButtonClicked");
@@ -73,14 +75,18 @@ public class MenuActivity extends Activity implements OnClickListener {
 		query.findInBackground(new FindCallback() {
 			public void done(List<ParseObject> objects, com.parse.ParseException e) {
 				if (e == null) {
-					listview_array2= new String[objects.size()];
+					listview_array= new String[objects.size()];
 		        	 for (int i = 0; i < objects.size(); i++){
 		        		 System.out.println(objects.get(i));
 		        		 ParseObject temp = objects.get(i);
 		        		 String user = temp.getString("Name");
-		        		 listview_array2[i] = user;
+		        		 listview_array[i] = user;
+		        		 aAdapter.add(user);
+		        		 aAdapter.notifyDataSetChanged();
+		        		 
 		        	 }
-		        	 listview_array = listview_array2;
+		        	
+		        	
 		        	 //Wont fill unless some action is made
 		        	 
 		        	 

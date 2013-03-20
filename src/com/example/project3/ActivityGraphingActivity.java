@@ -49,7 +49,12 @@ public class ActivityGraphingActivity extends Activity {
 		activityDisplay.setText(activity);
 	
 	
+		int[] yData = {124, 135 , 413, 356};
+		String[] xData = {};
+		
 		BarGraph bar = new BarGraph();
+
+		bar.setData(yData, xData);
 
 		GraphicalView gview = bar.getView(this);
 

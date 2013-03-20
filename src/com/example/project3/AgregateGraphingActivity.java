@@ -42,7 +42,12 @@ public class AgregateGraphingActivity extends Activity {
 	school.setText("Agregate Data");
 	
 	
+	int[] yData = {124, 135 , 413, 356, 234, 123, 342, 134, 123};
+	String[] xData = {};
+	
 	BarGraph bar = new BarGraph();
+
+	bar.setData(yData, xData);
 	GraphicalView gview = bar.getView(this);
 	LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
 	layout.addView(gview);
