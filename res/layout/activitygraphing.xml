@@ -79,7 +79,13 @@
             android:text="@string/table_row_value2" />
             </TableRow>
 
-
+         <Spinner
+            android:id="@+id/spinnerSorting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" 
+            android:layout_below="@+id/fullTable"
+            android:layout_marginTop="14dp" />
 
         </TableLayout>
         
@@ -88,10 +94,11 @@
              android:layout_width="fill_parent"
              android:layout_height="300dp"
              android:orientation="horizontal" 
-             android:layout_below="@id/fullTable"
+             android:layout_below="@id/spinnerSorting"
              android:layout_above= "@+id/graphDateStart"
-           />   
-         
+           />
+                 
+
             </RelativeLayout>
 
 </LinearLayout>
