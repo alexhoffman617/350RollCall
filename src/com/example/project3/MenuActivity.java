@@ -32,8 +32,7 @@ import android.widget.Toast;
 
 
 public class MenuActivity extends Activity implements OnClickListener {
-	private String link1="6fdU3KLp1XNBlI46hLK6hshFIfayFtVnjfXPRc70";
-	private String link2="M9G5oCWQukwkjPxlHjke9Z6PZl1gCoMW4LX0sPHa";
+
 	
 	private static final String TAG = "MenuActivity";
 		  ListView lv;
@@ -48,7 +47,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		  String listType;
 		
 	private void initializeParse(){
-		Parse.initialize(this, link1, link2);
+		Parse.initialize(this, LoginHandler.link1, LoginHandler.link2);
 	}
 	
 	@Override
