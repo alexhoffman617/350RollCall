@@ -129,8 +129,9 @@ public class AttendanceTakerActivity extends Activity {
     	{
     	   	if(userObject!=null){
 	    		System.out.println("Main Act Has Object");
-	    		Intent i = new Intent(this, ViewScreenActivity.class);
-		    	startActivityForResult(i, AttendanceTakerActivity.ACTIVITY_ViewScreen);
+	    		Intent i = new Intent(this, MainMenuActivity.class);
+	    		startActivity(i);
+		    	//startActivityForResult(i, AttendanceTakerActivity.ACTIVITY_ViewScreen);
 	
 	    	}
 	    	else{
@@ -143,8 +144,10 @@ public class AttendanceTakerActivity extends Activity {
 	    	}
     	}
     	else {
-    		Intent i = new Intent(this, ViewScreenActivity.class);
-    		startActivityForResult(i, AttendanceTakerActivity.ACTIVITY_ViewScreen);
+    		
+    		Intent i = new Intent(this, MainMenuActivity.class);
+    		//startActivityForResult(i, AttendanceTakerActivity.ACTIVITY_ViewScreen);
+    		startActivity(i);
     	}
     }
     
