@@ -14,45 +14,62 @@ public final class R {
     public static final class attr {
     }
     public static final class drawable {
-        public static final int ic_launcher=0x7f020000;
+        public static final int blue_button=0x7f020000;
+        public static final int ic_launcher=0x7f020001;
+        public static final int icon=0x7f020002;
+        public static final int logo=0x7f020003;
+        public static final int rcicon=0x7f020004;
     }
     public static final class id {
-        public static final int EditText01=0x7f080012;
-        public static final int Graph=0x7f080017;
-        public static final int LinearLayout01=0x7f080010;
-        public static final int ListView01=0x7f080013;
-        public static final int activityButton=0x7f08000e;
+        public static final int EditText01=0x7f080018;
+        public static final int Graph=0x7f08001d;
+        public static final int LinearLayout01=0x7f080016;
+        public static final int ListView01=0x7f080019;
+        public static final int Logoh=0x7f08000d;
+        public static final int Sync=0x7f080021;
+        public static final int ViewActivities=0x7f08001e;
+        public static final int ViewStudents=0x7f08001f;
+        public static final int activityButton=0x7f080014;
         public static final int activityDisplay=0x7f080002;
-        public static final int aggregateButton=0x7f08000f;
+        public static final int aggregateButton=0x7f080015;
         public static final int button=0x7f080001;
         public static final int chart=0x7f08000b;
-        public static final int comments=0x7f080016;
+        public static final int comments=0x7f08001c;
+        public static final int email=0x7f080020;
         public static final int fullTable=0x7f080006;
-        public static final int graph=0x7f080015;
+        public static final int graph=0x7f08001b;
         public static final int graphDateEnd=0x7f080004;
         public static final int graphDateStart=0x7f080005;
         public static final int lblTextViewOne=0x7f080008;
-        public static final int listType=0x7f080011;
+        public static final int listType=0x7f080017;
+        public static final int login=0x7f080011;
         public static final int loginText=0x7f080000;
-        public static final int menu_settings=0x7f080018;
-        public static final int nameDisplay=0x7f080014;
+        public static final int menu_settings=0x7f080022;
+        public static final int nameDisplay=0x7f08001a;
+        public static final int passwordField=0x7f08000f;
+        public static final int register=0x7f080012;
         public static final int schoolName=0x7f08000c;
+        public static final int spinner1=0x7f080010;
         public static final int spinnerSorting=0x7f08000a;
-        public static final int studentButton=0x7f08000d;
+        public static final int studentButton=0x7f080013;
         public static final int students=0x7f080003;
         public static final int tableRow1=0x7f080007;
         public static final int tableRow2=0x7f080009;
+        public static final int usernameField=0x7f08000e;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
         public static final int activitygraphing=0x7f030001;
         public static final int agregategraphing=0x7f030002;
-        public static final int mainmenu=0x7f030003;
-        public static final int menu=0x7f030004;
-        public static final int shape=0x7f030005;
-        public static final int studentcomments=0x7f030006;
-        public static final int studentgraphing=0x7f030007;
-        public static final int studentsinactivity=0x7f030008;
+        public static final int attendance_taker=0x7f030003;
+        public static final int graphing=0x7f030004;
+        public static final int mainmenu=0x7f030005;
+        public static final int menu=0x7f030006;
+        public static final int shape=0x7f030007;
+        public static final int studentcomments=0x7f030008;
+        public static final int studentgraphing=0x7f030009;
+        public static final int studentsinactivity=0x7f03000a;
+        public static final int view_screen=0x7f03000b;
     }
     public static final class menu {
         public static final int activity_main=0x7f070000;

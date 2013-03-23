@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    >
+
+    <Button
+        android:id="@+id/ViewActivities"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="100dp"
+        android:text="ViewActivities" 
+        android:textSize="40dp"
+        android:gravity="center"
+    	android:onClick="onViewActivitiesClick"
+    	/>
+
+    <Button
+        android:id="@+id/ViewStudents"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:text="ViewStudents" 
+        android:textSize="40dp"
+        android:gravity="center"
+        android:onClick="onViewStudentsClick" />
+    
+    <Button
+        android:id="@+id/email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:text="Email" 
+        android:textSize="40dp"
+        android:gravity="center"
+        android:onClick="onEmailClick" />
+    
+    <Button
+        android:id="@+id/Sync"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="50dp"
+        android:text="Sync" 
+        android:textSize="40dp"
+        android:gravity="center"
+        android:onClick="onSyncClick" />
+
+</LinearLayout>

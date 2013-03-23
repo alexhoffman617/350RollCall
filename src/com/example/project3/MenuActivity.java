@@ -32,6 +32,8 @@ import android.widget.Toast;
 
 
 public class MenuActivity extends Activity implements OnClickListener {
+	private String link1="6fdU3KLp1XNBlI46hLK6hshFIfayFtVnjfXPRc70";
+	private String link2="M9G5oCWQukwkjPxlHjke9Z6PZl1gCoMW4LX0sPHa";
 	
 	private static final String TAG = "MenuActivity";
 		  ListView lv;
@@ -46,7 +48,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		  String listType;
 		
 	private void initializeParse(){
-		Parse.initialize(this, "cuoXWbqvBKs8SUrhnyKdyNWiMPZxuDBZ31ehltVI", "tl8VMcFHu7u3haym9KSbRKEP61MmxPDvmL06dxeo");
+		Parse.initialize(this, link1, link2);
 	}
 	
 	@Override
@@ -71,7 +73,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		
 		//FOR STUDENTS
 		if(listType.equals( "Student")){
-		ParseQuery query = new ParseQuery("Computer");
+		ParseQuery query = new ParseQuery("Student");
 		query.findInBackground(new FindCallback() {
 			public void done(List<ParseObject> objects, com.parse.ParseException e) {
 				if (e == null) {
@@ -85,8 +87,6 @@ public class MenuActivity extends Activity implements OnClickListener {
 		        		 aAdapter.notifyDataSetChanged();
 		        		 
 		        	 }
-		        	
-		        	
 		        	 //Wont fill unless some action is made
 		        	 
 		        	 
@@ -99,15 +99,31 @@ public class MenuActivity extends Activity implements OnClickListener {
 		}
 		//MAKE ANOTHER FOR ACTIVITIES
 		else if(listType.equals("Activity")){
-			 
-			String listview_array2[]={"Computer", "Gym", "Reading", "Arts and Crafts"};
-			listview_array = listview_array2;
+			ParseQuery query = new ParseQuery("Activity");
+			query.findInBackground(new FindCallback() {
+				public void done(List<ParseObject> objects, com.parse.ParseException e) {
+					if (e == null) {
+						listview_array= new String[objects.size()];
+			        	 for (int i = 0; i < objects.size(); i++){
+			        		 System.out.println(objects.get(i));
+			        		 ParseObject temp = objects.get(i);
+			        		 String user = temp.getString("DisplayName");
+			        		 listview_array[i] = user;
+			        		 aAdapter.add(user);
+			        		 aAdapter.notifyDataSetChanged();
+			        		 
+			        	 }
+			        	 //Wont fill unless some action is made
+			        	 
+			        	 
+			         } else {
+			        	 return;
+			         }				
+				}
+			}); 
+			
 		}
-		
-		
-		
-	
-		
+
 		 title =(TextView)findViewById(R.id.listType);
 		 title.setText(listType);
 		
