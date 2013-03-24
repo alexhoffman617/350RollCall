@@ -10,8 +10,19 @@
     <string name = "table_row_value2">Total Actual Attendance</string>
     <string-array name="spinnerArray">
         <item>Gender</item>
-        <item>Grade Level</item>
-        <item>Teacher</item>
-        <item>Age</item>
+        <item>Kindergarten</item>
+        <item>First Grade</item>
+        <item>Second Grade</item>
+        <item>Third Grade</item>
+        <item>Fourth Grade</item>
+        <item>Fifth Grade</item>
+        <item>Sixth Grade</item>
+        <item>Seventh Grade</item>
+        <item>Eighth Grade</item>
+        <item>Ninth Grade</item>
+        <item>Tenth Grade</item>
+        <item>Eleventh Grade</item>
+        <item>Twelfth Grade</item>
+
 	</string-array>
 </resources>

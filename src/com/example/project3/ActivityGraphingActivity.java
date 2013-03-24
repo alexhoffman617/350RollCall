@@ -77,7 +77,7 @@ public class ActivityGraphingActivity extends Activity {
 		
 		BarGraph bar = new BarGraph();
 
-		bar.setData(yData, xData);
+		bar.setData(yData, xData, "Standard");
 
 		GraphicalView gview = bar.getView(this);
 

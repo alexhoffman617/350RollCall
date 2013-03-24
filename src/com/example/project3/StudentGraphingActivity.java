@@ -55,7 +55,7 @@ public class StudentGraphingActivity extends Activity {
 		String[] xData = {"2/1", "2/2", "2/3", "2/4", "2/5", "2/8", "2/9", "2/10", "2/11", "2/12", "2/14", "2/15"};
 		BarGraph bar = new BarGraph();
 
-		bar.setData(yData, xData);
+		bar.setData(yData, xData, "Standard");
 		
 		GraphicalView gview = bar.getView(this);
 
