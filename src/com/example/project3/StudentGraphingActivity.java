@@ -3,6 +3,7 @@ package com.example.project3;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 import org.achartengine.GraphicalView;
@@ -32,7 +33,7 @@ public class StudentGraphingActivity extends Activity {
 	private DatePicker graphEndDate;
 	
 	private List<String> activities;
-	
+	private HashMap<String, Boolean> absences = new HashMap<String, Boolean>();	
 	private int startDay;
 	private int startMonth;
 	private int startYear;
@@ -43,6 +44,8 @@ public class StudentGraphingActivity extends Activity {
 	
 	private TextView nameDisplay;
 	
+	ArrayList<Integer> yData;
+	ArrayList<String> xData;
 	
 	
 	@Override
@@ -58,9 +61,13 @@ public class StudentGraphingActivity extends Activity {
 		nameDisplay =(TextView) findViewById(R.id.nameDisplay);
 		nameDisplay.setText(userName);
 	
-
-		int[] yData = {124, 135 , 413, 356, 234, 123, 342, 134, 123, 643, 234, 274};
-		String[] xData = {"2/1", "2/2", "2/3", "2/4", "2/5", "2/8", "2/9", "2/10", "2/11", "2/12", "2/14", "2/15"};
+		xData = new ArrayList<String>();
+		yData = new ArrayList<Integer>();
+		xData.add("Fake");
+		yData.add(100);
+		
+		
+		
 		BarGraph bar = new BarGraph();
 
 		bar.setData(yData, xData, "Standard");
@@ -115,6 +122,10 @@ public class StudentGraphingActivity extends Activity {
 			c.set(arg1, arg2+1, arg3);
 			//Toast.makeText(getApplicationContext(), c2.get(Calendar.DAY_OF_MONTH)+ " " + c2.get(Calendar.MONTH) + " " +c2.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
 			final Calendar TempC = c;
+			
+			yData = new ArrayList<Integer>();
+			xData = new ArrayList<String>();
+			
 			for(int i = 0; i <7; i++){
 			if(TempC.get(Calendar.DAY_OF_WEEK)==6 || TempC.get(Calendar.DAY_OF_WEEK)==7){}
 			else{
@@ -122,11 +133,51 @@ public class StudentGraphingActivity extends Activity {
 				//Toast.makeText(getApplicationContext(), queryDate, Toast.LENGTH_LONG).show();
 				
 				
+				boolean absent = false;
+				 for (String activity : activities) {
+					 
+					 ParseQuery query = new ParseQuery(activity);
+						query.whereEqualTo("Name", userName);
+						List<ParseObject> queryList = new ArrayList<ParseObject>();
+						
+						try {
+							queryList = query.find();
+							for(ParseObject student : queryList) {
+								if(student.getString(queryDate)!=null){
+									System.out.println("setting to absent");
+									absent = true;
+									
+								}
+							}
+						}
+						catch(com.parse.ParseException e) {
+							e.printStackTrace();
+						}
+
+				}
+				
+						xData.add(TempC.get(Calendar.MONTH) + "/" + TempC.get(Calendar.DAY_OF_MONTH));
+						Log.v("x", TempC.get(Calendar.MONTH) + "/" + TempC.get(Calendar.DAY_OF_MONTH));
+						 if (absent) {
+							 yData.add(0);
+							 Log.v("y", "0");
+						 }
+						 else {
+							 yData.add(1);
+							 Log.v("y", "1");
+						 }
+							
+						 
+					}
+				 
+				
+				
+
 
 			}
 			TempC.add(Calendar.DATE, 1);
 			}
-		}
+		
 		
 	});
 	
@@ -151,19 +202,18 @@ public class StudentGraphingActivity extends Activity {
 			queryList = query.find();
 			Log.v("activities", queryList.size()+"");
 			for(ParseObject student : queryList) {
-				if(student.getNumber("Cooking").intValue() == 1) {
+				if(student.getNumber("Cooking")!=null){
 					activities.add("Cooking");
 				}
 				if(student.getNumber("Tennis")!=null){
-				if(student.getNumber("Tennis").intValue() == 1) {
 					activities.add("Tennis");
-				}}
-				/*if(student.getNumber("Basketball").intValue() == 1) {
+				}
+				if(student.getNumber("Basketball")!=null){
 					activities.add("Basketball");
 				}
-				if(student.getNumber("Swimming").intValue() == 1) {
+				if(student.getNumber("Swimmming")!=null){
 					activities.add("Swimming");
-				}*/
+				}
 	
 			}
 		}

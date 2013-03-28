@@ -4,6 +4,9 @@ package com.example.project3;
 
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.achartengine.ChartFactory;
 
 import org.achartengine.GraphicalView;
@@ -33,22 +36,22 @@ import android.graphics.Paint.Align;
 public class BarGraph{
 
 //private XYMultipleSeriesRenderer mRenderer = getDemoRenderer();
-public int[] y = {};
-public String[] x = {};
-public int[] y2 = {80, 20, 55, 20, 85, 22, 18, 53, 33, 42, 76, 22};
+public ArrayList<Integer> y;
+public ArrayList<String> x;
+public ArrayList<Integer> y2;
 public String graphType = "";
 GraphicalView gv;
 
-public void setData(int[] yData, String[] xData, String type){
+public void setData(ArrayList<Integer> yData, ArrayList<String> xData, String type){
 	y = yData;
 	x = xData;
 	graphType = type;
 }
 
-public void setData(int[] yData, String[] xData, String[] y2Data, String type){
+public void setData(ArrayList<Integer> yData, ArrayList<String> xData, ArrayList<Integer> y2Data, String type){
 	y = yData;
 	x = xData;
-	y2Data = y2Data;
+	y2 = y2Data;
 	graphType = type;
 }
 
@@ -61,9 +64,9 @@ public GraphicalView getView(Context context)
 if(graphType.equals("Stacked") || graphType.equals("Compare")){
 CategorySeries series = new CategorySeries("Demo Bar Graph");
 
-for (int i = 0; i<y.length; i++){
+for (int i = 0; i<y.size(); i++){
 
-series.add("Bar " + (i+1), y[i]);
+series.add("Bar " + (i+1), y.get(i));
 
 }
 
@@ -92,8 +95,8 @@ mRenderer.setZoomButtonsVisible(true);
 
 
 
-for(int i = 0; i<x.length; i++){
-	mRenderer.addXTextLabel(i+1, x[i]);
+for(int i = 0; i<x.size(); i++){
+	mRenderer.addXTextLabel(i+1, x.get(i));
 }
 
 mRenderer.setXLabels(0);
@@ -107,15 +110,15 @@ return gv;
 
 
 //CODE FOR A COMPARISON GRAPH
-else if(y[0]==0){
+else if(y.get(0)==0){
 // Creating an  XYSeries for Income
 XYSeries boys = new XYSeries("Boys");
 // Creating an  XYSeries for Expense
 XYSeries girls = new XYSeries("Grils");
 // Adding data to Income and Expense Series
-for(int i=0;i<x.length;i++){
-    boys.add(i,y[i]);
-    girls.add(i,y2[i]);
+for(int i=0;i<x.size();i++){
+    boys.add(i,y.get(i));
+    girls.add(i,y2.get(i));
 }
 
 // Creating a dataset to hold each series
@@ -146,8 +149,8 @@ multiRenderer.setChartTitle("Boys vs Girls");
 multiRenderer.setXTitle("Dates");
 multiRenderer.setYTitle("Attendance");
 multiRenderer.setZoomButtonsVisible(true);
-for(int i=0; i< x.length;i++){
-    multiRenderer.addXTextLabel(i, x[i]);
+for(int i=0; i< x.size();i++){
+    multiRenderer.addXTextLabel(i, x.get(i));
 }
 
 // Adding incomeRenderer and expenseRenderer to multipleRenderer
@@ -172,9 +175,9 @@ return gv;
 else{
 CategorySeries series = new CategorySeries("Demo Bar Graph");
 
-for (int i = 0; i<y.length; i++){
+for (int i = 0; i<y.size(); i++){
 
-series.add("Bar " + (i+1), y[i]);
+series.add("Bar " + (i+1), y.get(i));
 
 }
 
@@ -203,8 +206,8 @@ mRenderer.setZoomButtonsVisible(true);
 
 
 
-for(int i = 0; i<x.length; i++){
-	mRenderer.addXTextLabel(i+1, x[i]);
+for(int i = 0; i<x.size(); i++){
+	mRenderer.addXTextLabel(i+1, x.get(i));
 }
 
 mRenderer.setXLabels(0);

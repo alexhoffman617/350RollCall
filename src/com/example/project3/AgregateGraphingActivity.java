@@ -1,6 +1,7 @@
 package com.example.project3;
 
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import org.achartengine.GraphicalView;
@@ -42,8 +43,8 @@ public class AgregateGraphingActivity extends Activity {
 	school.setText("Agregate Data");
 	
 	
-	int[] yData = {124, 135 , 413, 356, 234, 123, 342, 134, 123};
-	String[] xData = {};
+	ArrayList<Integer> yData = new ArrayList<Integer>();
+	ArrayList<String> xData= new ArrayList<String>();
 	
 	BarGraph bar = new BarGraph();
 
