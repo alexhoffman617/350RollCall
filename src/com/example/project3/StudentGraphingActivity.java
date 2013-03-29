@@ -201,7 +201,7 @@ public class StudentGraphingActivity extends Activity {
 		
 	}
 
-	public List<String> getStudentActivities(String studentName) {
+	public static List<String> getStudentActivities(String studentName) {
 		ParseQuery query = new ParseQuery("Student");
 		query.whereEqualTo("Name", studentName);
 		List<ParseObject> queryList = new ArrayList<ParseObject>();

@@ -113,6 +113,23 @@ for(int i=0; i< x.size();i++){
 multiRenderer.addSeriesRenderer(boysRenderer);
 multiRenderer.addSeriesRenderer(girlsRenderer);
 
+
+multiRenderer.setBarSpacing(1);
+
+int max=2;
+for(int i=0; i< y.size(); i++){
+	if(y.get(i)>max){
+		max = y.get(i);
+	}
+}
+
+max = max + 10;
+
+multiRenderer.setYAxisMin(0);
+multiRenderer.setYAxisMax(max);
+multiRenderer.setXAxisMin(0);
+multiRenderer.setXAxisMax(x.size());
+
  gv = ChartFactory.getBarChartView(context, dataset, multiRenderer, Type.DEFAULT);
 
 if(graphType.equals("Stacked")){
