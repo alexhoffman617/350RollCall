@@ -63,7 +63,7 @@ public class ActivityGraphingActivity extends Activity {
 	private boolean noFilter = true;
 	private boolean genderFilterOn = false;
 	private boolean gradeFilterOn = false;
-	private String gradeLevel = "";
+	private int gradeLevel = 3;
 	
 	public class onItemSelect implements OnItemSelectedListener {
 
@@ -78,7 +78,7 @@ public class ActivityGraphingActivity extends Activity {
 			}
 			else if (!filter.equals("No Filter")) {
 				gradeFilterOn = true;
-				gradeLevel = filter;
+				gradeLevel = Integer.parseInt(filter);
 				genderFilterOn = false;
 				noFilter = false;
 			}
@@ -104,7 +104,8 @@ public class ActivityGraphingActivity extends Activity {
 
 	private void findListOfStudents(String ActivityType){
 		    numberOfStudentsInActivity = 0;
-			ParseQuery query = new ParseQuery(ActivityType);
+		    students = new ArrayList<String>();
+		    ParseQuery query = new ParseQuery(ActivityType);
 			List<ParseObject> queryList = new ArrayList<ParseObject>();
 			try {
 			queryList = query.find();
@@ -211,6 +212,31 @@ public class ActivityGraphingActivity extends Activity {
 		xData = new ArrayList<String>();
 		yData = new ArrayList<Integer>();
 		
+		if (gradeFilterOn){
+			if (gradeFilterOn){
+				ArrayList<String> studentsInGrade = new ArrayList<String>();
+				for (String s: students){
+					ParseQuery query = new ParseQuery("Student");
+					query.whereEqualTo("Name", s);
+					List<ParseObject> queryList = new ArrayList<ParseObject>();
+					
+					try {
+						queryList = query.find();
+					} catch (com.parse.ParseException e) {
+						e.printStackTrace();
+					}
+					for (ParseObject sObject: queryList){
+						if (sObject.getNumber("Parse_1112GradeLevel").intValue() == gradeLevel){
+							System.out.println("QueryList contains" + sObject.get("Name"));
+							studentsInGrade.add((String) sObject.get("Name"));
+						}
+					}
+				}
+				students = studentsInGrade;
+			}
+		}
+		
+		
 		/********* Tabulating the attendance for each activity *********/
 		final Calendar TempC = c;
 		
@@ -243,6 +269,7 @@ public class ActivityGraphingActivity extends Activity {
 								total_absences++;
 								System.out.println(total_absences + ": " + studentFound.get("Name") + " is absent on " + queryDate);
 							}
+						System.out.println("TOTAL ABSENCES:" + total_absences);
 						}
 					}
 					catch (com.parse.ParseException parseExcep){
@@ -252,7 +279,8 @@ public class ActivityGraphingActivity extends Activity {
 				}
 			}
 			if(TempC.get(Calendar.DAY_OF_WEEK)!=2 && TempC.get(Calendar.DAY_OF_WEEK)!=3){
-				yData.add(numberOfStudentsInActivity-total_absences);
+				System.out.println("size of array" + students.size());
+				yData.add(students.size()-total_absences);
 			}
 			xData.add(TempC.get(Calendar.MONTH) + "/" + TempC.get(Calendar.DAY_OF_MONTH));
 			
