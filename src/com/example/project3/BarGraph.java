@@ -60,7 +60,6 @@ public GraphicalView getView(Context context)
 {
 
 
-//CODE FOR A NORMAL GRAPH
 if(graphType.equals("Stacked") || graphType.equals("Compare")){
 CategorySeries series = new CategorySeries("Demo Bar Graph");
 
@@ -80,19 +79,20 @@ XYSeriesRenderer renderer = new XYSeriesRenderer();
 
 renderer.setDisplayChartValues(true);
 
-renderer.setChartValuesSpacing((float) 1);
+//renderer.setChartValuesSpacing((float) 1);
 renderer.setColor(Color.rgb(130, 130, 230));
 
 
 XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 
 mRenderer.addSeriesRenderer(renderer);
-mRenderer.setZoomButtonsVisible(true);
+mRenderer.setZoomButtonsVisible(false);
 mRenderer.setChartTitle("Student");
 mRenderer.setXTitle("Dates");
 mRenderer.setYTitle("Attendance");
-mRenderer.setZoomButtonsVisible(true);
 
+mRenderer.setYAxisMin(0);
+mRenderer.setZoomEnabled(false);
 
 
 for(int i = 0; i<x.size(); i++){
@@ -100,7 +100,7 @@ for(int i = 0; i<x.size(); i++){
 }
 
 mRenderer.setXLabels(0);
-
+mRenderer.setYLabels(5);
 GraphicalView gv = ChartFactory.getBarChartView(context, dataset, mRenderer, Type.DEFAULT);
 
 
@@ -191,8 +191,9 @@ XYSeriesRenderer renderer = new XYSeriesRenderer();
 
 renderer.setDisplayChartValues(true);
 
-renderer.setChartValuesSpacing((float) 1);
+renderer.setChartValuesSpacing((float) 5);
 renderer.setColor(Color.rgb(130, 130, 230));
+
 
 
 XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
@@ -203,7 +204,18 @@ mRenderer.setChartTitle("Student");
 mRenderer.setXTitle("Dates");
 mRenderer.setYTitle("Attendance");
 mRenderer.setZoomButtonsVisible(true);
+mRenderer.setBarSpacing(1);
 
+int max=2;
+for(int i=0; i< y.size(); i++){
+	if(y.get(i)>max){
+		max = y.get(i);
+	}
+}
+
+
+mRenderer.setYAxisMin(0);
+mRenderer.setYAxisMax(max);
 
 
 for(int i = 0; i<x.size(); i++){

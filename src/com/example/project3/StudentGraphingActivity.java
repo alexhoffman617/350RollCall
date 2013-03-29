@@ -13,6 +13,7 @@ import com.parse.ParseQuery;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.net.ParseException;
 import android.os.Bundle;
@@ -43,9 +44,14 @@ public class StudentGraphingActivity extends Activity {
 	private int endYear;
 	
 	private TextView nameDisplay;
+	private BarGraph bar = new BarGraph();
+	GraphicalView gview;
+	LinearLayout layout;
 	
-	ArrayList<Integer> yData;
-	ArrayList<String> xData;
+	private ArrayList<Integer> yData;
+	private ArrayList<String> xData;
+	
+	private Context context;
 	
 	
 	@Override
@@ -64,17 +70,21 @@ public class StudentGraphingActivity extends Activity {
 		xData = new ArrayList<String>();
 		yData = new ArrayList<Integer>();
 		xData.add("Fake");
-		yData.add(100);
+		yData.add(120);
+		xData.add("Fake");
+		yData.add(130);
+		xData.add("Fake");
+		yData.add(140);
 		
 		
 		
-		BarGraph bar = new BarGraph();
 
 		bar.setData(yData, xData, "Standard");
 		
-		GraphicalView gview = bar.getView(this);
+		 gview = bar.getView(this);
+		 context = this;
 
-		LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+		 layout = (LinearLayout) findViewById(R.id.chart);
 
 		layout.addView(gview);
 		
@@ -127,10 +137,13 @@ public class StudentGraphingActivity extends Activity {
 			xData = new ArrayList<String>();
 			
 			for(int i = 0; i <7; i++){
-			if(TempC.get(Calendar.DAY_OF_WEEK)==6 || TempC.get(Calendar.DAY_OF_WEEK)==7){}
+			if(TempC.get(Calendar.DAY_OF_WEEK)==2 || TempC.get(Calendar.DAY_OF_WEEK)==3){}
 			else{
-				String queryDate = "Absent_"+ TempC.get(Calendar.DAY_OF_MONTH)+"_"+ TempC.get(Calendar.MONTH)+"_"+TempC.get(Calendar.YEAR);
-				//Toast.makeText(getApplicationContext(), queryDate, Toast.LENGTH_LONG).show();
+				String queryDate = "Absent_"+ TempC.get(Calendar.MONTH)+"_";
+				if(TempC.get(Calendar.DAY_OF_MONTH) < 10) {
+					queryDate = queryDate + "0";
+				}
+				queryDate = queryDate + TempC.get(Calendar.DAY_OF_MONTH)+"_"+TempC.get(Calendar.YEAR);
 				
 				
 				boolean absent = false;
@@ -173,13 +186,19 @@ public class StudentGraphingActivity extends Activity {
 				
 				
 
-
-			}
 			TempC.add(Calendar.DATE, 1);
 			}
+			layout.removeView(gview);
+			bar.setData(yData, xData, "Standard");
+			
+			 gview = bar.getView(context);
+
+			 layout = (LinearLayout) findViewById(R.id.chart);
+			 
+			layout.addView(gview);
+			}
 		
-		
-	});
+});
 	
 	graphStartDate.setCalendarViewShown(false);
 	
