@@ -1,7 +1,5 @@
 package com.example.project3;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,9 +42,12 @@ public class StudentsInActivityActivity extends Activity {
 		  TextView title;
 		  
 		  String listType;
+	
+		  private List<String> all_students = new ArrayList<String>();
+		  
 		
 	private void initializeParse(){
-		Parse.initialize(this, "cuoXWbqvBKs8SUrhnyKdyNWiMPZxuDBZ31ehltVI", "tl8VMcFHu7u3haym9KSbRKEP61MmxPDvmL06dxeo");
+		Parse.initialize(this, LoginHandler.link1, LoginHandler.link2);
 	}
 	
 	@Override
@@ -58,8 +59,14 @@ public class StudentsInActivityActivity extends Activity {
 		
 		lv = (ListView) findViewById(R.id.ListView01);
 		et = (EditText) findViewById(R.id.EditText01);
-		lv.setAdapter(new ArrayAdapter<String>(this,
-		android.R.layout.simple_list_item_1, listview_array));
+		
+		 final ArrayAdapter<String> aAdapter = new  ArrayAdapter<String>(this,android.R.layout.simple_list_item_1);
+		// final ArrayAdapter<String> aAdapter2 = new  ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, activity_array);
+			lv.setAdapter(aAdapter);
+		lv.setAdapter(aAdapter);
+		
+		
+		
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 		     listType = extras.getString("ActivityType");
@@ -67,85 +74,68 @@ public class StudentsInActivityActivity extends Activity {
 		}
 		
 		
-		//FOR STUDENTS
-		
-		ParseQuery query = new ParseQuery("Computer");
-		query.findInBackground(new FindCallback() {
-			public void done(List<ParseObject> objects, com.parse.ParseException e) {
-				if (e == null) {
-					listview_array2= new String[objects.size()];
-		        	 for (int i = 0; i < objects.size(); i++){
-		        		 System.out.println(objects.get(i));
-		        		 ParseObject temp = objects.get(i);
-		        		 String user = temp.getString("Name");
-		        		 listview_array2[i] = user;
-		        	 }
-		        	 listview_array = listview_array2;
-		        	 //Wont fill unless some action is made
-		        	 
-		        	 
-		         } else {
-		        	 return;
-		         }				
-			}
-		});
-		
-		
-		//MAKE ANOTHER FOR ACTIVITIES
-		/*else if(listType.equals("Activity")){
-			 
-			String listview_array2[]={"Computer", "Gym", "Reading", "Arts and Crafts"};
-			listview_array = listview_array2;
+		//Students
+		ParseQuery query = new ParseQuery(listType);
+		List<ParseObject> queryList = new ArrayList<ParseObject>();
+		try {
+		queryList = query.find();
+		for(ParseObject student : queryList) {
+		if(student.getString("Name")!=null){
+			String studentName = student.getString("Name");
+			all_students.add(studentName);
+		 aAdapter.add(studentName);
+		 aAdapter.notifyDataSetChanged();
+
 		}
-		*/
+		}
+		}
+		catch(com.parse.ParseException e) {
+		e.printStackTrace();
+		}
 		
 		
-	
 		
-		 title =(TextView)findViewById(R.id.listType);
-		 title.setText(listType);
+		
+		
+		title =(TextView)findViewById(R.id.listType);
+		title.setText(listType);
 		
 		lv.setOnItemClickListener(new OnItemClickListener(){
 
-			@Override
-			public void onItemClick(AdapterView<?> l, View v, int position, 
-					long id) {
-				Object obj = lv.getAdapter().getItem(position);
-				String str = obj.toString();
-				Toast.makeText(getApplicationContext(), "You chose "+ str, Toast.LENGTH_LONG).show();	
+			
+@Override
+public void onItemClick(AdapterView<?> l, View v, int position, long id) {
+			Object obj = lv.getAdapter().getItem(position);
+			String str = obj.toString();
+			Toast.makeText(getApplicationContext(), "You chose "+ str, Toast.LENGTH_LONG).show();	
 				
-				if(listType.equals("Students")){
+			if(listType.equals("Student")){
 				Intent intent = new Intent(getBaseContext(), StudentGraphingActivity.class);
 				intent.putExtra("userName", str);
 				startActivity(intent);
-				}
-				
-				if(listType.equals("ActivityType")){
-					Intent intent = new Intent(getBaseContext(), ActivityGraphingActivity.class);
-					intent.putExtra("ActivityType", str);
-					startActivity(intent);
-				}
 			}
-		});
-		et.addTextChangedListener(new TextWatcher()
-		{
-		public void afterTextChanged(Editable s)
-		{
-		}
-		public void beforeTextChanged(CharSequence s,
-		int start, int count, int after)
-		{
-		// Abstract Method of TextWatcher Interface.
-		}
-		public void onTextChanged(CharSequence s,
-		int start, int before, int count)
-		{
-		textlength = et.getText().length();
-		array_sort.clear();
-		for (int i = 0; i < listview_array.length; i++)
-		{
-		if (textlength <= listview_array[i].length())
-		{
+				
+			if(listType.equals("ActivityType")){
+				Intent intent = new Intent(getBaseContext(), ActivityGraphingActivity.class);
+				intent.putExtra("ActivityType", str);
+				startActivity(intent);
+			}
+			}
+	});
+	
+		et.addTextChangedListener(new TextWatcher(){
+			public void afterTextChanged(Editable s){
+				
+			}
+			public void beforeTextChanged(CharSequence s, int start, int count, int after){
+				// Abstract Method of TextWatcher Interface.
+				}
+			public void onTextChanged(CharSequence s, int start, int before, int count){
+				textlength = et.getText().length();
+				array_sort.clear();
+				System.out.println("144");
+				for (int i = 0; i < listview_array.length; i++){
+					if (textlength <= listview_array[i].length()){
 		String[] splitname = listview_array[i].split(" ");
 		if(et.getText().toString().equalsIgnoreCase(
 		(String)
@@ -194,7 +184,3 @@ public class StudentsInActivityActivity extends Activity {
 	}
         
         
-        
-        
-        
-    
