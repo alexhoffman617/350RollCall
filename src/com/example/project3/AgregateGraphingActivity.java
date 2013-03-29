@@ -8,6 +8,7 @@ import org.achartengine.GraphicalView;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.DatePicker;
@@ -20,21 +21,27 @@ public class AgregateGraphingActivity extends Activity {
 	String userName = "";
 	private static final String TAG = "MenuActivity";
 	private DatePicker graphStartDate;
-	private DatePicker graphEndDate;
+
 	
 	private int startDay;
 	private int startMonth;
 	private int startYear;
-	
-	private int endDay;
-	private int endMonth;
-	private int endYear;
+
 	
 	private TextView school;
 	
-	ArrayList<Integer> yData = new ArrayList<Integer>();
-	ArrayList<String> xData= new ArrayList<String>();
+	private BarGraph bar;
+	private GraphicalView gview;
+	private LinearLayout layout;
 	
+	private ArrayList<Integer> yData = new ArrayList<Integer>();
+	private ArrayList<String> xData= new ArrayList<String>();
+	
+	private Context context;
+	final Calendar c = Calendar.getInstance();
+	
+	private TextView PossibleAttendance;
+	private TextView ActualAttendance;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -54,59 +61,46 @@ public class AgregateGraphingActivity extends Activity {
 	yData.add(140);
 
 	
-	BarGraph bar = new BarGraph();
+	bar = new BarGraph();
 
 	bar.setData(yData, xData, "Standard");
-	GraphicalView gview = bar.getView(this);
-	LinearLayout layout = (LinearLayout) findViewById(R.id.chart);
+	context = this;
+	gview = bar.getView(this);
+	layout = (LinearLayout) findViewById(R.id.chart);
 	layout.addView(gview);
 	
-	
-	graphEndDate = (DatePicker) findViewById(R.id.graphDateEnd);
-	
-	
-	final Calendar c = Calendar.getInstance();
-	endYear = c.get(Calendar.YEAR);
-	endMonth = c.get(Calendar.MONTH);
-	endDay = c.get(Calendar.DAY_OF_MONTH);
-	
-	graphEndDate.init(endYear, endMonth, endDay, new OnDateChangedListener(){
 
-		@Override
-		public void onDateChanged(DatePicker arg0, int arg1, int arg2, int arg3) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	});
-	
-	graphEndDate.setCalendarViewShown(false);
 	
 	graphStartDate = (DatePicker) findViewById(R.id.graphDateStart);
 	
 	
-	final Calendar c2 = Calendar.getInstance();
 
-	c2.add(c2.DAY_OF_MONTH, -7);
 
-	startYear = c2.get(Calendar.YEAR);
-	startMonth = c2.get(Calendar.MONTH);
-	startDay = c2.get(Calendar.DAY_OF_MONTH);
+	c.add(c.DAY_OF_MONTH, -7);
+
+	startYear = c.get(Calendar.YEAR);
+	startMonth = c.get(Calendar.MONTH);
+	startDay = c.get(Calendar.DAY_OF_MONTH);
 	
-	graphEndDate.init(startYear, startMonth, startDay, new OnDateChangedListener(){
- 
+	graphStartDate.init(startYear, startMonth, startDay, new OnDateChangedListener(){
+		 
 		@Override
 		public void onDateChanged(DatePicker arg0, int arg1, int arg2, int arg3) {
-			// TODO Auto-generated method stub
-			
+			//Toast.makeText(getApplicationContext(), "arg 1: " + arg1 + "    arg2: " + arg2 + "    arg3: "+ arg3, Toast.LENGTH_LONG).show();
+
+			c.set(arg1, arg2+1, arg3);
+			//Toast.makeText(getApplicationContext(), c2.get(Calendar.DAY_OF_MONTH)+ " " + c2.get(Calendar.MONTH) + " " +c2.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
 		}
 		
-	});
+});
 	
 	graphStartDate.setCalendarViewShown(false);
 	
 	}
 	
 	
+	}
+	
+	
 
-}
+

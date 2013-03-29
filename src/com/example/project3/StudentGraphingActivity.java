@@ -49,7 +49,7 @@ public class StudentGraphingActivity extends Activity {
 	private Context context;
 	final Calendar c = Calendar.getInstance();
 	
-	private TextView TotalAttendance;
+	private TextView PossibleAttendance;
 	private TextView ActualAttendance;
 	
 	@Override
@@ -75,7 +75,7 @@ public class StudentGraphingActivity extends Activity {
 		xData.add("Fake");
 		yData.add(140);
 		
-		TotalAttendance = (TextView) findViewById(R.id.TotalAttendance);
+		PossibleAttendance = (TextView) findViewById(R.id.PossibleAttendance);
 		ActualAttendance = (TextView) findViewById(R.id.ActualAttendance);
 		
 
@@ -192,7 +192,7 @@ public class StudentGraphingActivity extends Activity {
 		 
 		layout.addView(gview);
 		
-		TotalAttendance.setText("Total Possible Attendance: " + xData.size());
+		PossibleAttendance.setText("Total Possible Attendance: " + xData.size());
 		int daysAttended=0;
 		for(int i = 0; i<yData.size(); i++){
 			daysAttended = daysAttended + yData.get(i);

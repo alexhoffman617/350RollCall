@@ -84,7 +84,7 @@ dataset.addSeries(girls);
 
 // Creating XYSeriesRenderer to customize incomeSeries
 XYSeriesRenderer boysRenderer = new XYSeriesRenderer();
-boysRenderer.setColor(Color.rgb(130, 130, 230));
+boysRenderer.setColor(Color.rgb(0, 153, 204));
 boysRenderer.setFillPoints(true);
 boysRenderer.setLineWidth(2);
 boysRenderer.setDisplayChartValues(true);

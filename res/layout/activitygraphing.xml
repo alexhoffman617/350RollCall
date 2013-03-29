@@ -33,12 +33,22 @@
             android:background="@drawable/blue_button"
         	/>
     
-            <DatePicker
-            android:id="@+id/graphDateEnd"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentLeft="true"/>
+
+          <Button
+        	android:id="@+id/graphChange"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:onClick="onGraphBtnClick"
+        	android:layout_alignParentBottom="true"
+        	android:layout_alignParentLeft="true"
+        	android:text="Change Graph" 
+        	android:textColor="#ffffff"
+            android:textSize="30dp"
+             android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/blue_button"
+        	/>      
             
         <DatePicker
         android:id="@+id/graphDateStart"
@@ -100,7 +110,7 @@
               <LinearLayout
              android:id="@+id/chart"
              android:layout_width="fill_parent"
-             android:layout_height="300dp"
+             android:layout_height="400dp"
              android:orientation="horizontal" 
              android:layout_below="@id/spinnerSorting"
              android:layout_above= "@+id/graphDateStart"
