@@ -110,7 +110,7 @@ return gv;
 
 
 //CODE FOR A COMPARISON GRAPH
-else if(y.get(0)==0){
+else if(y.get(0)==-1){
 // Creating an  XYSeries for Income
 XYSeries boys = new XYSeries("Boys");
 // Creating an  XYSeries for Expense

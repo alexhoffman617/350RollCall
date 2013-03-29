@@ -29,7 +29,17 @@
         	/>
     
 
-            
+          <Button
+        	android:id="@+id/graphChange"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:onClick="onGraphBtnClick"
+        	android:layout_alignParentBottom="true"
+        	android:layout_alignParentLeft="true"
+        	android:text="Change Graph" 
+        	/>       
+     
+     
         <DatePicker
         android:id="@+id/graphDateStart"
         android:layout_width="wrap_content"
@@ -55,7 +65,7 @@
                 
 
                    <TextView
-            android:id="@+id/lblTextViewOne"
+            android:id="@+id/TotalAttendance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/table_row_value1" />
@@ -71,7 +81,7 @@
                 android:background="@layout/shape" >
 
             <TextView
-            android:id="@+id/lblTextViewOne"
+            android:id="@+id/ActualAttendance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/table_row_value2" />

@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.achartengine.GraphicalView;
 
+import com.parse.Parse;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -29,30 +30,27 @@ import android.widget.Toast;
 
 public class StudentGraphingActivity extends Activity {
 	public String userName = " ";
-	private static final String TAG = "MenuActivity";
 	private DatePicker graphStartDate;
-	private DatePicker graphEndDate;
 	
 	private List<String> activities;
-	private HashMap<String, Boolean> absences = new HashMap<String, Boolean>();	
 	private int startDay;
 	private int startMonth;
 	private int startYear;
 	
-	private int endDay;
-	private int endMonth;
-	private int endYear;
 	
 	private TextView nameDisplay;
 	private BarGraph bar = new BarGraph();
-	GraphicalView gview;
-	LinearLayout layout;
+	private GraphicalView gview;
+	private LinearLayout layout;
 	
 	private ArrayList<Integer> yData;
 	private ArrayList<String> xData;
 	
 	private Context context;
+	final Calendar c = Calendar.getInstance();
 	
+	private TextView TotalAttendance;
+	private TextView ActualAttendance;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +60,8 @@ public class StudentGraphingActivity extends Activity {
 		if (extras != null) {
 		     userName = extras.getString("userName");
 		}
-
+		
+		Parse.initialize(this, LoginHandler.link1, LoginHandler.link2);
 	
 		nameDisplay =(TextView) findViewById(R.id.nameDisplay);
 		nameDisplay.setText(userName);
@@ -76,7 +75,8 @@ public class StudentGraphingActivity extends Activity {
 		xData.add("Fake");
 		yData.add(140);
 		
-		
+		TotalAttendance = (TextView) findViewById(R.id.TotalAttendance);
+		ActualAttendance = (TextView) findViewById(R.id.ActualAttendance);
 		
 
 		bar.setData(yData, xData, "Standard");
@@ -90,32 +90,11 @@ public class StudentGraphingActivity extends Activity {
 		
 		activities =getStudentActivities(userName);
 		
-	/*	
-	
-	graphEndDate = (DatePicker) findViewById(R.id.graphDateEnd);
-	
-	
-	final Calendar c = Calendar.getInstance();
-	endYear = c.get(Calendar.YEAR);
-	endMonth = c.get(Calendar.MONTH);
-	endDay = c.get(Calendar.DAY_OF_MONTH);
-	
-	graphEndDate.init(endYear, endMonth, endDay, new OnDateChangedListener(){
 
-		@Override
-		public void onDateChanged(DatePicker arg0, int arg1, int arg2, int arg3) {
-			// TODO Auto-generated method stub
-			
-		}
-		
-	});
-	
-	graphEndDate.setCalendarViewShown(false);
-	*/
 	graphStartDate = (DatePicker) findViewById(R.id.graphDateStart);
 	
 	
-	final Calendar c = Calendar.getInstance();
+	
 
 	c.add(c.DAY_OF_MONTH, -7);
 
@@ -131,72 +110,7 @@ public class StudentGraphingActivity extends Activity {
 
 			c.set(arg1, arg2+1, arg3);
 			//Toast.makeText(getApplicationContext(), c2.get(Calendar.DAY_OF_MONTH)+ " " + c2.get(Calendar.MONTH) + " " +c2.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
-			final Calendar TempC = c;
-			
-			yData = new ArrayList<Integer>();
-			xData = new ArrayList<String>();
-			
-			for(int i = 0; i <7; i++){
-			if(TempC.get(Calendar.DAY_OF_WEEK)==2 || TempC.get(Calendar.DAY_OF_WEEK)==3){}
-			else{
-				String queryDate = "Absent_"+ TempC.get(Calendar.MONTH)+"_";
-				if(TempC.get(Calendar.DAY_OF_MONTH) < 10) {
-					queryDate = queryDate + "0";
-				}
-				queryDate = queryDate + TempC.get(Calendar.DAY_OF_MONTH)+"_"+TempC.get(Calendar.YEAR);
-				
-				
-				boolean absent = false;
-				 for (String activity : activities) {
-					 
-					 ParseQuery query = new ParseQuery(activity);
-						query.whereEqualTo("Name", userName);
-						List<ParseObject> queryList = new ArrayList<ParseObject>();
-						
-						try {
-							queryList = query.find();
-							for(ParseObject student : queryList) {
-								if(student.getString(queryDate)!=null){
-									System.out.println("setting to absent");
-									absent = true;
-									
-								}
-							}
-						}
-						catch(com.parse.ParseException e) {
-							e.printStackTrace();
-						}
-
-				}
-				
-						xData.add(TempC.get(Calendar.MONTH) + "/" + TempC.get(Calendar.DAY_OF_MONTH));
-						Log.v("x", TempC.get(Calendar.MONTH) + "/" + TempC.get(Calendar.DAY_OF_MONTH));
-						 if (absent) {
-							 yData.add(0);
-							 Log.v("y", "0");
-						 }
-						 else {
-							 yData.add(1);
-							 Log.v("y", "1");
-						 }
-							
-						 
-					}
-				 
-				
-				
-
-			TempC.add(Calendar.DATE, 1);
-			}
-			layout.removeView(gview);
-			bar.setData(yData, xData, "Standard");
-			
-			 gview = bar.getView(context);
-
-			 layout = (LinearLayout) findViewById(R.id.chart);
-			 
-			layout.addView(gview);
-			}
+		}
 		
 });
 	
@@ -210,6 +124,81 @@ public class StudentGraphingActivity extends Activity {
 		Intent intent = new Intent(this, StudentComentsActivity.class);
 		intent.putExtra("userName", userName);
 		startActivity(intent);		
+	}
+	
+	public void onGraphBtnClick(View arg0){
+		final Calendar TempC = c;
+		
+		yData = new ArrayList<Integer>();
+		xData = new ArrayList<String>();
+		
+		for(int i = 0; i <7; i++){
+		if(TempC.get(Calendar.DAY_OF_WEEK)==2 || TempC.get(Calendar.DAY_OF_WEEK)==3){}
+		else{
+			String queryDate = "Absent_"+ TempC.get(Calendar.MONTH)+"_";
+			if(TempC.get(Calendar.DAY_OF_MONTH) < 10) {
+				queryDate = queryDate + "0";
+			}
+			queryDate = queryDate + TempC.get(Calendar.DAY_OF_MONTH)+"_"+TempC.get(Calendar.YEAR);
+			
+			
+			boolean absent = false;
+			 for (String activity : activities) {
+				 
+				 ParseQuery query = new ParseQuery(activity);
+					query.whereEqualTo("Name", userName);
+					List<ParseObject> queryList = new ArrayList<ParseObject>();
+					
+					try {
+						queryList = query.find();
+						for(ParseObject student : queryList) {
+							if(student.getString(queryDate)!=null && !student.getString(queryDate).equals("--")){
+							Log.v("tag", queryDate +"     "+ student.getString(queryDate));
+
+								absent = true;
+								
+							}
+						}
+					}
+					catch(com.parse.ParseException e) {
+						e.printStackTrace();
+					}
+
+			}
+			
+					xData.add(TempC.get(Calendar.MONTH) + "/" + TempC.get(Calendar.DAY_OF_MONTH));
+					 if (absent) {
+						 yData.add(0);
+					 }
+					 else {
+						 yData.add(1);
+					 }
+						
+					 
+				}
+			 
+			
+			
+		TempC.add(Calendar.DATE, 1);
+
+		
+		}
+		layout.removeView(gview);
+		bar.setData(yData, xData, "Standard");
+		
+		 gview = bar.getView(context);
+
+		 layout = (LinearLayout) findViewById(R.id.chart);
+		 
+		layout.addView(gview);
+		
+		TotalAttendance.setText("Total Possible Attendance: " + xData.size());
+		int daysAttended=0;
+		for(int i = 0; i<yData.size(); i++){
+			daysAttended = daysAttended + yData.get(i);
+		}
+		ActualAttendance.setText("Total Actual Attendance: " + daysAttended);
+		
 	}
 
 	public List<String> getStudentActivities(String studentName) {
