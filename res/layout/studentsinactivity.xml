@@ -21,15 +21,14 @@
                 
              <Button
         	android:id="@+id/Graph"
-        	android:layout_width="700dp"
-        	android:layout_height="200dp"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
         	android:onClick="onGraphBtnClick"
         	android:layout_alignParentRight="true"
-        	android:layout_alignParentTop = "true"
         	android:text="Graph" 
         	        	android:textColor="#ffffff"
             android:textSize="30dp"
-             android:layout_gravity="center"
+                         android:layout_gravity="center"
             android:layout_margin="1dp"
             android:layout_weight="0.5"
             android:background="@drawable/blue_button"

@@ -61,56 +61,10 @@ public GraphicalView getView(Context context)
 
 
 if(graphType.equals("Stacked") || graphType.equals("Compare")){
-CategorySeries series = new CategorySeries("Demo Bar Graph");
 
-for (int i = 0; i<y.size(); i++){
-
-series.add("Bar " + (i+1), y.get(i));
-
-}
-
-
-XYMultipleSeriesDataset dataset = new XYMultipleSeriesDataset();
-
-dataset.addSeries(series.toXYSeries());
-
-
-XYSeriesRenderer renderer = new XYSeriesRenderer();
-
-renderer.setDisplayChartValues(true);
-
-//renderer.setChartValuesSpacing((float) 1);
-renderer.setColor(Color.rgb(130, 130, 230));
-
-
-XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
-
-mRenderer.addSeriesRenderer(renderer);
-mRenderer.setZoomButtonsVisible(false);
-mRenderer.setChartTitle("Student");
-mRenderer.setXTitle("Dates");
-mRenderer.setYTitle("Attendance");
-
-mRenderer.setYAxisMin(0);
-mRenderer.setZoomEnabled(false);
-
-
-for(int i = 0; i<x.size(); i++){
-	mRenderer.addXTextLabel(i+1, x.get(i));
-}
-
-mRenderer.setXLabels(0);
-mRenderer.setYLabels(5);
-GraphicalView gv = ChartFactory.getBarChartView(context, dataset, mRenderer, Type.DEFAULT);
-
-
-return gv;
-
-}
 
 
 //CODE FOR A COMPARISON GRAPH
-else if(y.get(0)==-1){
 // Creating an  XYSeries for Income
 XYSeries boys = new XYSeries("Boys");
 // Creating an  XYSeries for Expense
@@ -166,9 +120,9 @@ if(graphType.equals("Stacked")){
 }
 
 return gv;
+
+
 }
-
-
 
 
 //CODE FOR A NORMAL GRAPH
