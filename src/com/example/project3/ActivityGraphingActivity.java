@@ -59,13 +59,34 @@ public class ActivityGraphingActivity extends Activity {
 	private BarGraph bar;
 	GraphicalView gview;
 	LinearLayout layout;
+
+	private boolean noFilter = true;
+	private boolean genderFilterOn = false;
+	private boolean gradeFilterOn = false;
+	private String gradeLevel = "";
 	
 	public class onItemSelect implements OnItemSelectedListener {
 
 		@Override
 		public void onItemSelected(AdapterView<?> parent, View view, int pos,
 				long id) {
-			// TODO Auto-generated method stub
+			String filter = (String) spinnerSorting.getSelectedItem();
+			if (filter.equals("Gender")) {
+				genderFilterOn = true;
+				gradeFilterOn = false;
+				noFilter = false;
+			}
+			else if (!filter.equals("No Filter")) {
+				gradeFilterOn = true;
+				gradeLevel = filter;
+				genderFilterOn = false;
+				noFilter = false;
+			}
+			else {
+				noFilter = true;
+				gradeFilterOn = false;
+				genderFilterOn = false;
+			}
 			
 		}
 
@@ -193,7 +214,6 @@ public class ActivityGraphingActivity extends Activity {
 		/********* Tabulating the attendance for each activity *********/
 		final Calendar TempC = c;
 		
-
 		for(int i = 0; i <7; i++){
 			//DO NOTHING IF NOT WEEKEND
 			int total_absences = 0;

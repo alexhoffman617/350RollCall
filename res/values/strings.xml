@@ -11,8 +11,8 @@
     <string-array name="spinnerArray">
         <item>No Filter</item>
         <item>Gender</item>
-        <item>Third Grade</item>
-        <item>Fourth Grade</item>
-        <item>Fifth Grade</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
 	</string-array>
 </resources>

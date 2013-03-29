@@ -7,6 +7,7 @@ import java.util.List;
 
 import org.achartengine.GraphicalView;
 
+import com.example.project3.ActivityGraphingActivity.onItemSelect;
 import com.parse.ParseObject;
 import com.parse.ParseQuery;
 
@@ -17,8 +18,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.DatePicker.OnDateChangedListener;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,6 +37,7 @@ public class AgregateGraphingActivity extends Activity {
 	private int startMonth;
 	private int startYear;
 
+	Spinner spinnerAggregate;
 	
 	private TextView school;
 	
@@ -49,10 +55,43 @@ public class AgregateGraphingActivity extends Activity {
 	private TextView PossibleAttendance;
 	private TextView ActualAttendance;
 	
+	private boolean noFilter = true;
+	private boolean genderFilterOn = false;
+	private boolean gradeFilterOn = false;
+	private String gradeLevel = "";
+	
 	String[] activities = {"Cooking", "Basketball", "Swimming", "Tennis"};
+	public class onItemSelect implements OnItemSelectedListener {
+
+		@Override
+		public void onItemSelected(AdapterView<?> parent, View view, int pos,
+				long id) {
+			String filter = (String) spinnerAggregate.getSelectedItem();
+			if (filter.equals("Gender")) {
+				genderFilterOn = true;
+				gradeFilterOn = false;
+				noFilter = false;
+			}
+			else if (!filter.equals("No Filter")) {
+				gradeFilterOn = true;
+				gradeLevel = filter;
+				genderFilterOn = false;
+				noFilter = false;
+			}
+			else {
+				noFilter = true;
+				gradeFilterOn = false;
+				genderFilterOn = false;
+			}
+			
+		}
+		@Override
+		public void onNothingSelected(AdapterView<?> parent) {
+			// TODO Auto-generated method stub
+			
+		}
+	}
 	
-	
-	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.agregategraphing);
@@ -107,6 +146,13 @@ public class AgregateGraphingActivity extends Activity {
 });
 	
 	graphStartDate.setCalendarViewShown(false);
+	
+	spinnerAggregate = (Spinner) findViewById(R.id.spinnerAggregate);
+	ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(
+			this, R.array.spinnerArray, android.R.layout.simple_spinner_item);	
+	adapter.setDropDownViewResource( android.R.layout.simple_spinner_dropdown_item);
+	spinnerAggregate.setAdapter(adapter);
+	spinnerAggregate.setOnItemSelectedListener(new onItemSelect());
 	
 	}
 	
