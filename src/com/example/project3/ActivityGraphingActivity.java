@@ -40,6 +40,9 @@ public class ActivityGraphingActivity extends Activity {
 	
 	Spinner spinnerSorting;
 	
+	private ArrayList<Integer> yData = new ArrayList<Integer>();
+	private ArrayList<String> xData= new ArrayList<String>();
+	
 	public class onItemSelect implements OnItemSelectedListener {
 
 		@Override
@@ -72,9 +75,16 @@ public class ActivityGraphingActivity extends Activity {
 		activityDisplay =(TextView) findViewById(R.id.activityDisplay);
 		activityDisplay.setText(activity);
 	
-	
-		ArrayList<Integer> yData = new ArrayList<Integer>();
-		ArrayList<String> xData= new ArrayList<String>();
+		
+		xData = new ArrayList<String>();
+		yData = new ArrayList<Integer>();
+		xData.add("Fake");
+		yData.add(120);
+		xData.add("Fake");
+		yData.add(130);
+		xData.add("Fake");
+		yData.add(140);
+
 		
 		BarGraph bar = new BarGraph();
 

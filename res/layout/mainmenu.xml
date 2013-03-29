@@ -14,14 +14,24 @@
         	android:layout_height="wrap_content"
         	android:layout_centerInParent="true"
         	android:onClick="onStudentBtnClick"
-        	android:text="Student" />
+        	android:text="Student"
+        	 android:textColor="#ffffff"
+            android:textSize="30dp"
+             android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/blue_button"
+             />
         	
         <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_above="@id/studentButton"
-        android:text="@string/Roll_Call_Visualization" />
+        android:text="@string/Roll_Call_Visualization"
+                android:textSize="40dp"
+        android:textColor="#0099CC"
+         />
     
         	
      <Button
@@ -31,7 +41,14 @@
         	android:layout_centerHorizontal="true"
     		android:layout_below="@id/studentButton"
     		android:onClick="onActivityBtnClick"
-        	android:text="Activity" />
+        	android:text="Activity" 
+        	        	android:textColor="#ffffff"
+            android:textSize="30dp"
+             android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/blue_button"
+            />
         	
       <Button
         	android:id="@+id/aggregateButton"
@@ -40,7 +57,14 @@
         	android:layout_centerHorizontal="true"
     		android:layout_below="@id/activityButton"
     		android:onClick="onAggregateBtnClick"
-        	android:text="Aggregate" />
+        	android:text="Aggregate" 
+        	        	android:textColor="#ffffff"
+            android:textSize="30dp"
+             android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/blue_button"
+            />
     
 
 </RelativeLayout>

@@ -14,6 +14,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
+                        android:textSize="40dp"
+        android:textColor="#0099CC"
         />
     
      <Button
@@ -23,6 +25,12 @@
         	android:onClick="onStudentsBtnClick"
         	android:layout_alignParentRight="true"
         	android:text="Students" 
+        	        	android:textColor="#ffffff"
+            android:textSize="30dp"
+             android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/blue_button"
         	/>
     
             <DatePicker

@@ -32,6 +32,8 @@ public class AgregateGraphingActivity extends Activity {
 	
 	private TextView school;
 	
+	ArrayList<Integer> yData = new ArrayList<Integer>();
+	ArrayList<String> xData= new ArrayList<String>();
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,9 +44,15 @@ public class AgregateGraphingActivity extends Activity {
 	school = (TextView) findViewById(R.id.schoolName);
 	school.setText("Agregate Data");
 	
-	
-	ArrayList<Integer> yData = new ArrayList<Integer>();
-	ArrayList<String> xData= new ArrayList<String>();
+	xData = new ArrayList<String>();
+	yData = new ArrayList<Integer>();
+	xData.add("Fake");
+	yData.add(120);
+	xData.add("Fake");
+	yData.add(130);
+	xData.add("Fake");
+	yData.add(140);
+
 	
 	BarGraph bar = new BarGraph();
 

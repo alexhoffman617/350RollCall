@@ -18,6 +18,13 @@
         	android:layout_height="wrap_content"
         	android:layout_centerHorizontal="true"
         	android:layout_below="@id/loginText"
-        	android:text="Login" />
+        	android:text="Login" 
+        	        	android:textColor="#ffffff"
+            android:textSize="30dp"
+             android:layout_gravity="center"
+            android:layout_margin="1dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/blue_button"
+            />
 
 </RelativeLayout>

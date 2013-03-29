@@ -192,7 +192,7 @@ XYSeriesRenderer renderer = new XYSeriesRenderer();
 renderer.setDisplayChartValues(true);
 
 renderer.setChartValuesSpacing((float) 5);
-renderer.setColor(Color.rgb(130, 130, 230));
+renderer.setColor(Color.rgb(0, 153, 204));
 
 
 
@@ -213,9 +213,12 @@ for(int i=0; i< y.size(); i++){
 	}
 }
 
+max = max + 10;
 
 mRenderer.setYAxisMin(0);
 mRenderer.setYAxisMax(max);
+mRenderer.setXAxisMin(.5);
+mRenderer.setXAxisMax(y.size()+.5);
 
 
 for(int i = 0; i<x.size(); i++){

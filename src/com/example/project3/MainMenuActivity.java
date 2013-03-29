@@ -26,7 +26,7 @@ public class MainMenuActivity extends Activity{
 		
 		
 		Intent intent = new Intent(this, MenuActivity.class);
-		intent.putExtra("ButtonClicked", "Student" );
+		intent.putExtra("ButtonClicked", "Students" );
 		startActivity(intent);		
 	}
 	

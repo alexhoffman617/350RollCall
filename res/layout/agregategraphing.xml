@@ -29,6 +29,8 @@
         android:layout_height="wrap_content"
        android:layout_centerInParent="true"
        android:layout_alignParentTop = "true"
+        android:textSize="40dp"
+        android:textColor="#0099CC"
         />
         
         <TableLayout

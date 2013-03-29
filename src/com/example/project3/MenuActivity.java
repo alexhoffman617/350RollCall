@@ -71,7 +71,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		
 		
 		//FOR STUDENTS
-		if(listType.equals( "Student")){
+		if(listType.equals( "Students")){
 		ParseQuery query = new ParseQuery("Student");
 		query.findInBackground(new FindCallback() {
 			public void done(List<ParseObject> objects, com.parse.ParseException e) {
@@ -135,7 +135,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 				String str = obj.toString();
 				Toast.makeText(getApplicationContext(), "You chose "+ str, Toast.LENGTH_LONG).show();	
 				
-				if(listType.equals("Student")){
+				if(listType.equals("Students")){
 				Intent intent = new Intent(getBaseContext(), StudentGraphingActivity.class);
 				intent.putExtra("userName", str);
 				startActivity(intent);
