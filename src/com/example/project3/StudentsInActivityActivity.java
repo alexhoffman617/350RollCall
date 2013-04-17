@@ -1,6 +1,7 @@
 package com.example.project3;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import com.parse.FindCallback;
@@ -156,7 +157,7 @@ public void onItemClick(AdapterView<?> l, View v, int position, long id) {
 						array_sort.add(listview_array[i]);
 						}}}
 		                                                                                }
-		                                                                }
+		                                                               }
 		lv.setAdapter(new ArrayAdapter<String>(StudentsInActivityActivity.this,android.R.layout.simple_list_item_1, array_sort));
 		;
 		}

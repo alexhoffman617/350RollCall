@@ -101,7 +101,18 @@
             android:text="@string/table_row_value2" />
             </TableRow>
 
+			<TableRow
+                android:id="@+id/tableRow3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@layout/shape" >
 
+            <TextView
+            android:id="@+id/lastDayPresent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lastDayPresent" />
+            </TableRow>
 
         </TableLayout>
 

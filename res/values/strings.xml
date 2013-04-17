@@ -8,6 +8,7 @@
     <string name="Roll_Call_Visualization">Roll Call Visualization</string>
     <string name="table_row_value1">Total Possible Attendance</string>
     <string name = "table_row_value2">Total Actual Attendance</string>
+    <string name = "lastDayPresent">Last Day Present</string>
     <string-array name="spinnerArray">
         <item>No Filter</item>
         <item>Gender</item>

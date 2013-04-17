@@ -42,6 +42,9 @@ public class StudentComentsActivity extends Activity {
 	
 	private Calendar c = Calendar.getInstance();
 	
+	private TextView PossibleAttendance;
+	private TextView ActualAttendance;
+	
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,8 @@ public class StudentComentsActivity extends Activity {
 		nameDisplay =(TextView) findViewById(R.id.nameDisplay);
 		nameDisplay.setText(userName);
 	
-	
+		PossibleAttendance = (TextView) findViewById(R.id.PossibleAttendance);
+		ActualAttendance = (TextView) findViewById(R.id.ActualAttendance);
 	
 
 	
@@ -155,7 +159,7 @@ public class StudentComentsActivity extends Activity {
 
 		String date = TempC.get(Calendar.MONTH)+"/"+TempC.get(Calendar.DAY_OF_MONTH)+"/"+TempC.get(Calendar.YEAR);
 
-		comments.add(date + " - " + student.getString(queryDate));
+		comments.add("On "+date + " in " + activity +" - " + student.getString(queryDate));
 
 		}
 
@@ -168,6 +172,8 @@ public class StudentComentsActivity extends Activity {
 		e.printStackTrace();
 
 		}
+		
+		
 
 
 

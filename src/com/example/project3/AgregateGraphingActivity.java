@@ -175,7 +175,7 @@ public class AgregateGraphingActivity extends Activity {
 
 		else{
 
-		String queryDate = "Absent_"+ TempC.get(Calendar.MONTH)+"_";
+		String queryDate = "In_"+ TempC.get(Calendar.MONTH)+"_";
 
 		if(TempC.get(Calendar.DAY_OF_MONTH) < 10) {
 
@@ -212,7 +212,7 @@ public class AgregateGraphingActivity extends Activity {
 
 		Log.v("tag", student +"   " + queryDate +"      "+ activity +"     "+ s.getString(queryDate));
 
-		absent = true;
+		absent = false;
 
 
 		}
@@ -274,7 +274,7 @@ public class AgregateGraphingActivity extends Activity {
 
 
 		PossibleAttendance.setText("Total Possible Attendance: " + xData.size()*getStudentList().size());
-
+		int totalPossibleAttendance = xData.size()*getStudentList().size();
 		int daysAttended=0;
 
 		for(int i = 0; i<yData.size(); i++){
@@ -282,8 +282,8 @@ public class AgregateGraphingActivity extends Activity {
 		daysAttended = daysAttended + yData.get(i);
 
 		}
-
-		ActualAttendance.setText("Total Actual Attendance: " + daysAttended);
+		float percentage = ((float)daysAttended/(float)totalPossibleAttendance)*100;
+		ActualAttendance.setText("Total Actual Attendance: " + daysAttended + " , " + percentage + "%");
 
 
 		}

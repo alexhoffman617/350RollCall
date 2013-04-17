@@ -51,6 +51,8 @@ public class StudentGraphingActivity extends Activity {
 	
 	private TextView PossibleAttendance;
 	private TextView ActualAttendance;
+	private TextView LastDayPresent;
+	private String ldp = "FIND REAL LAST DAY PRESENT";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -77,6 +79,7 @@ public class StudentGraphingActivity extends Activity {
 		
 		PossibleAttendance = (TextView) findViewById(R.id.PossibleAttendance);
 		ActualAttendance = (TextView) findViewById(R.id.ActualAttendance);
+		LastDayPresent = (TextView) findViewById(R.id.lastDayPresent);
 		
 
 		bar.setData(yData, xData, "Standard");
@@ -135,7 +138,7 @@ public class StudentGraphingActivity extends Activity {
 		for(int i = 0; i <7; i++){
 		if(TempC.get(Calendar.DAY_OF_WEEK)==2 || TempC.get(Calendar.DAY_OF_WEEK)==3){}
 		else{
-			String queryDate = "Absent_"+ TempC.get(Calendar.MONTH)+"_";
+			String queryDate = "In_"+ TempC.get(Calendar.MONTH)+"_";
 			if(TempC.get(Calendar.DAY_OF_MONTH) < 10) {
 				queryDate = queryDate + "0";
 			}
@@ -155,7 +158,7 @@ public class StudentGraphingActivity extends Activity {
 							if(student.getString(queryDate)!=null && !student.getString(queryDate).equals("--")){
 							Log.v("tag", queryDate +"     "+ student.getString(queryDate));
 
-								absent = true;
+								absent = false;
 								
 							}
 						}
@@ -197,7 +200,9 @@ public class StudentGraphingActivity extends Activity {
 		for(int i = 0; i<yData.size(); i++){
 			daysAttended = daysAttended + yData.get(i);
 		}
-		ActualAttendance.setText("Total Actual Attendance: " + daysAttended);
+		float percentage = ((float)daysAttended/(float)xData.size())*100;
+		ActualAttendance.setText("Total Actual Attendance: " + daysAttended + " , " + percentage + "%");
+		LastDayPresent.setText("Last Day Present: " + ldp);
 		
 	}
 
