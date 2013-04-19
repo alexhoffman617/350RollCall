@@ -10,7 +10,7 @@
     
      <Button
         	android:id="@+id/studentButton"
-        	android:layout_width="wrap_content"
+        	android:layout_width="400dp"
         	android:layout_height="wrap_content"
         	android:layout_centerInParent="true"
         	android:onClick="onStudentBtnClick"
@@ -36,7 +36,7 @@
         	
      <Button
         	android:id="@+id/activityButton"
-        	android:layout_width="wrap_content"
+        	android:layout_width="400dp"
         	android:layout_height="wrap_content"
         	android:layout_centerHorizontal="true"
     		android:layout_below="@id/studentButton"
@@ -52,7 +52,7 @@
         	
       <Button
         	android:id="@+id/aggregateButton"
-        	android:layout_width="wrap_content"
+        	android:layout_width="400dp"
         	android:layout_height="wrap_content"
         	android:layout_centerHorizontal="true"
     		android:layout_below="@id/activityButton"

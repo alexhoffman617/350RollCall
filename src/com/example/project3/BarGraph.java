@@ -123,13 +123,21 @@ for(int i=0; i< y.size(); i++){
 	}
 }
 
-max = max + 10;
-
-multiRenderer.setYAxisMin(0);
+if(max > 50){
+	multiRenderer.setYAxisMax(max+10);
+}
+else{
 multiRenderer.setYAxisMax(max);
-multiRenderer.setXAxisMin(0);
-multiRenderer.setXAxisMax(x.size());
-
+}
+multiRenderer.setXAxisMin(.5);
+multiRenderer.setXAxisMax(y.size()+.5);
+multiRenderer.setAxisTitleTextSize(25);
+multiRenderer.setChartValuesTextSize(20);
+multiRenderer.setLabelsTextSize(20);
+multiRenderer.setChartTitleTextSize(30);
+multiRenderer.setBackgroundColor(Color.WHITE);
+multiRenderer.setYLabelsAlign(Align.LEFT);
+multiRenderer.setYLabelsColor(0, Color.BLACK);
  gv = ChartFactory.getBarChartView(context, dataset, multiRenderer, Type.DEFAULT);
 
 if(graphType.equals("Stacked")){
@@ -144,7 +152,7 @@ return gv;
 
 //CODE FOR A NORMAL GRAPH
 else{
-CategorySeries series = new CategorySeries("Demo Bar Graph");
+CategorySeries series = new CategorySeries("");
 
 for (int i = 0; i<y.size(); i++){
 
@@ -170,11 +178,8 @@ renderer.setColor(Color.rgb(0, 153, 204));
 XYMultipleSeriesRenderer mRenderer = new XYMultipleSeriesRenderer();
 
 mRenderer.addSeriesRenderer(renderer);
-mRenderer.setZoomButtonsVisible(true);
-mRenderer.setChartTitle("Student");
 mRenderer.setXTitle("Dates");
 mRenderer.setYTitle("Attendance");
-mRenderer.setZoomButtonsVisible(true);
 mRenderer.setBarSpacing(1);
 
 int max=2;
@@ -184,12 +189,24 @@ for(int i=0; i< y.size(); i++){
 	}
 }
 
-max = max + 10;
+
 
 mRenderer.setYAxisMin(0);
+if(max > 50){
+	mRenderer.setYAxisMax(max+10);
+}
+else{
 mRenderer.setYAxisMax(max);
+}
 mRenderer.setXAxisMin(.5);
 mRenderer.setXAxisMax(y.size()+.5);
+mRenderer.setAxisTitleTextSize(25);
+mRenderer.setChartValuesTextSize(20);
+mRenderer.setLabelsTextSize(20);
+mRenderer.setChartTitleTextSize(30);
+mRenderer.setBackgroundColor(Color.WHITE);
+mRenderer.setYLabelsAlign(Align.LEFT);
+mRenderer.setYLabelsColor(0, Color.BLACK);
 
 
 for(int i = 0; i<x.size(); i++){

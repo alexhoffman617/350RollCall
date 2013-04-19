@@ -47,7 +47,7 @@
         	android:text="Change Graph" 
         	android:textColor="#ffffff"
             android:textSize="30dp"
-             android:layout_gravity="center"
+            android:layout_gravity="center"
             android:layout_margin="1dp"
             android:layout_weight="0.5"
             android:background="@drawable/blue_button"
