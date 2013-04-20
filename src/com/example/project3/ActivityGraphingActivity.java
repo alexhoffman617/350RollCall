@@ -53,6 +53,9 @@ public class ActivityGraphingActivity extends Activity {
 	private ArrayList<Integer> yData = new ArrayList<Integer>();
 	private ArrayList<String> xData= new ArrayList<String>();
 	
+	private ArrayList<Integer> y2Data = new ArrayList<Integer>();
+	private ArrayList<String> x2Data= new ArrayList<String>();
+	
 	final Calendar c = Calendar.getInstance();
 	private Context context;
 	
@@ -122,6 +125,7 @@ public class ActivityGraphingActivity extends Activity {
 			}
 	}
 	
+	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -208,7 +212,6 @@ public class ActivityGraphingActivity extends Activity {
 		yData = new ArrayList<Integer>();
 		
 		if (gradeFilterOn){
-			if (gradeFilterOn){
 				ArrayList<String> studentsInGrade = new ArrayList<String>();
 				for (String s: students){
 					ParseQuery query = new ParseQuery("Student");
@@ -227,18 +230,78 @@ public class ActivityGraphingActivity extends Activity {
 						}
 					}
 				}
-				students = studentsInGrade;
+				tabulateAttendance(studentsInGrade, xData, yData);
+		}
+		if (genderFilterOn){
+			ArrayList<String> studentsFemale = new ArrayList<String>();
+			ArrayList<String> studentsMale = new ArrayList<String>();
+			for (String s: students){
+				ParseQuery query = new ParseQuery("Student");
+				query.whereEqualTo("Name", s);
+				List<ParseObject> queryList = new ArrayList<ParseObject>();
+				
+				try {
+					queryList = query.find();
+				} catch (com.parse.ParseException e) {
+					e.printStackTrace();
+				}
+				for (ParseObject sObject: queryList){
+					if (sObject.get("Gender").equals("Female")){
+						System.out.println("QueryList contains" + sObject.get("Name"));
+						studentsFemale.add((String) sObject.get("Name"));
+					}
+					else{
+						studentsMale.add((String)sObject.get("Name"));
+					}
+				}
 			}
+			for (int i =0; i<studentsFemale.size(); i++){
+				System.out.println("Female is " + studentsFemale.get(i));
+			}
+			
+			for (int i =0; i<studentsMale.size(); i++){
+				System.out.println("Male is " + studentsMale.get(i));
+			}
+			
+			System.out.println("FEMALE TABULATE ATTENDANCE");
+			tabulateAttendance(studentsFemale, xData, yData);
+			System.out.println("MALE TABULATE ATTENDANCE");
+			tabulateAttendance(studentsMale, x2Data, y2Data);
+	}
+		
+		if (noFilter){
+			tabulateAttendance(students, xData, yData);
+		}
+		
+		/********* Tabulating the attendance for each activity *********/
+		
+		layout.removeView(gview);
+		
+		if(noFilter || gradeFilterOn){
+			bar.setData(yData, xData, "Standard");
+		}
+		
+		if (genderFilterOn){
+			bar.setData(yData, xData, y2Data, "Compare");
 		}
 		
 		
-		/********* Tabulating the attendance for each activity *********/
+		
+		 gview = bar.getView(context);
+
+		 layout = (LinearLayout) findViewById(R.id.chart);
+		 
+		layout.addView(gview);
+		
+		}
+	
+	public void tabulateAttendance(List<String> studentsList, ArrayList<String> xDataForGraph, ArrayList<Integer> yDataForGraph){
 		final Calendar TempC = c;
 		
 		for(int i = 0; i <7; i++){
 			//DO NOTHING IF NOT WEEKEND
 			int total_absences = 0;
-			if(TempC.get(Calendar.DAY_OF_WEEK)==2 || TempC.get(Calendar.DAY_OF_WEEK)==3){
+			if(TempC.get(Calendar.DAY_OF_WEEK)==Calendar.MONDAY || TempC.get(Calendar.DAY_OF_WEEK)==Calendar.TUESDAY){
 			}
 			else{
 				String queryDate = "Absent_"+ TempC.get(Calendar.MONTH)+"_";
@@ -249,7 +312,7 @@ public class ActivityGraphingActivity extends Activity {
 				
 				
 				System.out.println("*******" + queryDate + "********");
-				for (String student : students){
+				for (String student : studentsList){
 					ParseQuery query2 = new ParseQuery(activity).whereEqualTo("Name", student);
 					//query2.whereEqualTo("Name", student);
 					List<ParseObject> queryList = new ArrayList<ParseObject>();
@@ -273,28 +336,18 @@ public class ActivityGraphingActivity extends Activity {
 					} 
 				}
 			}
-			if(TempC.get(Calendar.DAY_OF_WEEK)!=2 && TempC.get(Calendar.DAY_OF_WEEK)!=3){
-				System.out.println("size of array" + students.size());
-				yData.add(students.size()-total_absences);
+			
+			if(TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.MONDAY && TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.TUESDAY){
+				System.out.println("size of array" + studentsList.size());
+				yDataForGraph.add(studentsList.size()-total_absences);
 			}
-			xData.add(TempC.get(Calendar.MONTH) + "/" + TempC.get(Calendar.DAY_OF_MONTH));
+			xDataForGraph.add(TempC.get(Calendar.MONTH) + "/" + TempC.get(Calendar.DAY_OF_MONTH));
+
 			
 			TempC.add(Calendar.DATE, 1);
 		}
 		TempC.add(Calendar.DATE, -7);
-		for (int i = 0; i < yData.size(); i++){
-			System.out.println(yData.get(i));}
-		
-		layout.removeView(gview);
-		bar.setData(yData, xData, "Standard");
-		
-		 gview = bar.getView(context);
-
-		 layout = (LinearLayout) findViewById(R.id.chart);
-		 
-		layout.addView(gview);
-		
-		}
+	}
 	}
 	
 

@@ -45,13 +45,14 @@ GraphicalView gv;
 public void setData(ArrayList<Integer> yData, ArrayList<String> xData, String type){
 	y = yData;
 	x = xData;
+	y2 = new ArrayList<Integer>();
 	graphType = type;
 }
 
 public void setData(ArrayList<Integer> yData, ArrayList<String> xData, ArrayList<Integer> y2Data, String type){
 	y = yData;
 	x = xData;
-	y2 = y2Data;
+	y2 = y2Data;//y2Data;
 	graphType = type;
 }
 
@@ -63,6 +64,10 @@ public GraphicalView getView(Context context)
 if(graphType.equals("Stacked") || graphType.equals("Compare")){
 
 
+	
+	
+	
+	
 
 //CODE FOR A COMPARISON GRAPH
 // Creating an  XYSeries for Income
@@ -70,9 +75,9 @@ XYSeries boys = new XYSeries("Boys");
 // Creating an  XYSeries for Expense
 XYSeries girls = new XYSeries("Grils");
 // Adding data to Income and Expense Series
-for(int i=0;i<x.size();i++){
-    boys.add(i,y.get(i));
-    girls.add(i,y2.get(i));
+for(int i=0;i<y.size();i++){
+    boys.add((i+1), y2.get(i));
+    girls.add((i+1),y.get(i));
 }
 
 // Creating a dataset to hold each series
@@ -101,9 +106,8 @@ XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
 multiRenderer.setXLabels(0);
 multiRenderer.setXTitle("Dates");
 multiRenderer.setYTitle("Attendance");
-multiRenderer.setZoomButtonsVisible(true);
 for(int i=0; i< x.size();i++){
-    multiRenderer.addXTextLabel(i, x.get(i));
+    multiRenderer.addXTextLabel(i+1, x.get(i));
 }
 
 // Adding incomeRenderer and expenseRenderer to multipleRenderer
@@ -120,8 +124,13 @@ for(int i=0; i< y.size(); i++){
 	if(y.get(i)>max){
 		max = y.get(i);
 	}
+	if(y2.get(i)>max){
+		max = y2.get(i);
+	}
 }
 
+
+multiRenderer.setYAxisMin(0);
 if(max > 50){
 	multiRenderer.setYAxisMax(max+10);
 }
