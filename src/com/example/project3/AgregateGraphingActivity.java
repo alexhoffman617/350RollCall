@@ -104,12 +104,7 @@ public class AgregateGraphingActivity extends Activity {
 	
 	xData = new ArrayList<String>();
 	yData = new ArrayList<Integer>();
-	xData.add("Fake");
-	yData.add(120);
-	xData.add("Fake");
-	yData.add(130);
-	xData.add("Fake");
-	yData.add(140);
+
 
 	
 	bar = new BarGraph();
@@ -256,6 +251,8 @@ public class AgregateGraphingActivity extends Activity {
 
 
 		}
+		
+		TempC.add(Calendar.DATE, -7);
 
 		layout.removeView(gview);
 

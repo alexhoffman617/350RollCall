@@ -99,7 +99,6 @@ girlsRenderer.setDisplayChartValues(true);
 // Creating a XYMultipleSeriesRenderer to customize the whole chart
 XYMultipleSeriesRenderer multiRenderer = new XYMultipleSeriesRenderer();
 multiRenderer.setXLabels(0);
-multiRenderer.setChartTitle("Boys vs Girls");
 multiRenderer.setXTitle("Dates");
 multiRenderer.setYTitle("Attendance");
 multiRenderer.setZoomButtonsVisible(true);
@@ -116,7 +115,7 @@ multiRenderer.addSeriesRenderer(girlsRenderer);
 
 multiRenderer.setBarSpacing(1);
 
-int max=2;
+int max=1;
 for(int i=0; i< y.size(); i++){
 	if(y.get(i)>max){
 		max = y.get(i);
@@ -127,7 +126,7 @@ if(max > 50){
 	multiRenderer.setYAxisMax(max+10);
 }
 else{
-multiRenderer.setYAxisMax(max);
+multiRenderer.setYAxisMax(max+1);
 }
 multiRenderer.setXAxisMin(.5);
 multiRenderer.setXAxisMax(y.size()+.5);
@@ -182,7 +181,7 @@ mRenderer.setXTitle("Dates");
 mRenderer.setYTitle("Attendance");
 mRenderer.setBarSpacing(1);
 
-int max=2;
+int max=1;
 for(int i=0; i< y.size(); i++){
 	if(y.get(i)>max){
 		max = y.get(i);
@@ -196,7 +195,7 @@ if(max > 50){
 	mRenderer.setYAxisMax(max+10);
 }
 else{
-mRenderer.setYAxisMax(max);
+mRenderer.setYAxisMax(max+1);
 }
 mRenderer.setXAxisMin(.5);
 mRenderer.setXAxisMax(y.size()+.5);

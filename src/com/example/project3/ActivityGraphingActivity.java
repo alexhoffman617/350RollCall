@@ -145,12 +145,7 @@ public class ActivityGraphingActivity extends Activity {
 		xData = new ArrayList<String>();
 		yData = new ArrayList<Integer>();
 		
-		xData.add("FAKE");
-		yData.add(30);
-		xData.add("FAKE");
-		yData.add(60);
-		xData.add("FAKE");
-		yData.add(90);
+
 		
 		
 		 bar = new BarGraph();
@@ -286,6 +281,7 @@ public class ActivityGraphingActivity extends Activity {
 			
 			TempC.add(Calendar.DATE, 1);
 		}
+		TempC.add(Calendar.DATE, -7);
 		for (int i = 0; i < yData.size(); i++){
 			System.out.println(yData.get(i));}
 		

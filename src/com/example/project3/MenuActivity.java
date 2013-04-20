@@ -3,6 +3,8 @@ package com.example.project3;
 
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import com.parse.FindCallback;
@@ -50,6 +52,27 @@ public class MenuActivity extends Activity implements OnClickListener {
 		Parse.initialize(this, LoginHandler.link1, LoginHandler.link2);
 	}
 	
+	
+	 public static void sortPlayers(ArrayList<String> studentList) {
+		    for (int i = 0; i < studentList.size(); i++) {
+		        for (int j = 0; j < studentList.size(); j++) {
+		            Collections.sort(studentList, new Comparator() {
+
+		            	@Override
+		                public int compare(Object o1, Object o2) {
+		                    String[] p1 = ((String) o1).split(" ");
+		                    String[] p2 = ((String) o2).split(" ");
+		                    int res =  p1[1].compareToIgnoreCase(p2[1]);
+		                    if (res != 0)
+		                        return res;
+		                    return p1[0].compareToIgnoreCase(p2[0]);
+						}
+		            });
+		        }
+
+		    }
+		}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -67,6 +90,9 @@ public class MenuActivity extends Activity implements OnClickListener {
 		if (extras != null) {
 		     listType = extras.getString("ButtonClicked");
 		 
+		     
+		   
+		     
 		}
 		
 		
@@ -82,11 +108,26 @@ public class MenuActivity extends Activity implements OnClickListener {
 		        		 ParseObject temp = objects.get(i);
 		        		 String user = temp.getString("Name");
 		        		 listview_array[i] = user;
-		        		 aAdapter.add(user);
-		        		 aAdapter.notifyDataSetChanged();
-		        		 
+
 		        	 }
-		        	 //Wont fill unless some action is made
+		        /*	 java.util.Arrays.sort(listview_array);
+		        	 for(int i=0; i<listview_array.length; i++){
+		        		 aAdapter.add(listview_array[i]);
+		        		 aAdapter.notifyDataSetChanged();*/
+		        	 ArrayList<String> studentAList = new ArrayList<String>();
+		        	 for(int i=0; i<listview_array.length; i++){
+		        		studentAList.add(listview_array[i]);
+		        	 }
+		        	 
+		        	 sortPlayers(studentAList);
+		        	 
+		        	 for(int i = 0; i<studentAList.size(); i++){
+		        		aAdapter.add(studentAList.get(i));
+		        		aAdapter.notifyDataSetChanged();
+		        	 
+				
+		        	 
+		        	 }
 		        	 
 		        	 
 		         } else {
@@ -108,12 +149,14 @@ public class MenuActivity extends Activity implements OnClickListener {
 			        		 ParseObject temp = objects.get(i);
 			        		 String user = temp.getString("DisplayName");
 			        		 listview_array[i] = user;
-			        		 aAdapter.add(user);
-			        		 aAdapter.notifyDataSetChanged();
+
 			        		 
 			        	 }
-			        	 //Wont fill unless some action is made
-			        	 
+			        	 java.util.Arrays.sort(listview_array);
+			        	 for(int i=0; i<listview_array.length; i++){
+			        		 aAdapter.add(listview_array[i]);
+			        		 aAdapter.notifyDataSetChanged();
+			        	 }
 			        	 
 			         } else {
 			        	 return;
@@ -207,6 +250,8 @@ public class MenuActivity extends Activity implements OnClickListener {
 
 		
 
+	
+	
 
 
 	
