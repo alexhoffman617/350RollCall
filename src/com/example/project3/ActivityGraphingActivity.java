@@ -183,7 +183,7 @@ public class ActivityGraphingActivity extends Activity {
 		public void onDateChanged(DatePicker arg0, int arg1, int arg2, int arg3) {
 			//Toast.makeText(getApplicationContext(), "arg 1: " + arg1 + "    arg2: " + arg2 + "    arg3: "+ arg3, Toast.LENGTH_LONG).show();
 
-			c.set(arg1, arg2+1, arg3);
+			c.set(arg1, arg2, arg3);
 			//Toast.makeText(getApplicationContext(), c2.get(Calendar.DAY_OF_MONTH)+ " " + c2.get(Calendar.MONTH) + " " +c2.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
 		}
 		
@@ -301,10 +301,10 @@ public class ActivityGraphingActivity extends Activity {
 		for(int i = 0; i <7; i++){
 			//DO NOTHING IF NOT WEEKEND
 			int total_absences = 0;
-			if(TempC.get(Calendar.DAY_OF_WEEK)==Calendar.MONDAY || TempC.get(Calendar.DAY_OF_WEEK)==Calendar.TUESDAY){
+			if(TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY || TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){
 			}
 			else{
-				String queryDate = "Absent_"+ TempC.get(Calendar.MONTH)+"_";
+				String queryDate = "Absent_"+ TempC.get(Calendar.MONTH)+1 +"_";
 				if(TempC.get(Calendar.DAY_OF_MONTH) < 10){
 					queryDate = queryDate + "0";
 				}
@@ -337,11 +337,12 @@ public class ActivityGraphingActivity extends Activity {
 				}
 			}
 			
-			if(TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.MONDAY && TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.TUESDAY){
+			if(TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SATURDAY && TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SUNDAY){
 				System.out.println("size of array" + studentsList.size());
 				yDataForGraph.add(studentsList.size()-total_absences);
+				xDataForGraph.add(TempC.get(Calendar.DAY_OF_WEEK)+ ", " + (TempC.get(Calendar.MONTH)+1) + "/" + TempC.get(Calendar.DAY_OF_MONTH)+ "/" + TempC.get(Calendar.YEAR));
+
 			}
-			xDataForGraph.add(TempC.get(Calendar.MONTH) + "/" + TempC.get(Calendar.DAY_OF_MONTH));
 
 			
 			TempC.add(Calendar.DATE, 1);

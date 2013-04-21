@@ -144,19 +144,18 @@ public class MenuActivity extends Activity implements OnClickListener {
 				public void done(List<ParseObject> objects, com.parse.ParseException e) {
 					if (e == null) {
 						listview_array= new String[objects.size()];
-						System.out.println(objects.size());
 			        	 for (int i = 0; i < objects.size(); i++){
 			        		 System.out.println(objects.get(i));
 			        		 ParseObject temp = objects.get(i);
 			        		 String user = temp.getString("DisplayName");
 			        		 listview_array[i] = user;
-			        		 aAdapter.add(listview_array[i]);
-			        		 aAdapter.notifyDataSetChanged();
+
 			        		 
 			        	 }
 			        	 java.util.Arrays.sort(listview_array);
 			        	 for(int i=0; i<listview_array.length; i++){
-
+			        		 aAdapter.add(listview_array[i]);
+			        		 aAdapter.notifyDataSetChanged();
 			        	 }
 			        	 
 			         } else {

@@ -73,7 +73,7 @@ if(graphType.equals("Stacked") || graphType.equals("Compare")){
 // Creating an  XYSeries for Income
 XYSeries boys = new XYSeries("Boys");
 // Creating an  XYSeries for Expense
-XYSeries girls = new XYSeries("Grils");
+XYSeries girls = new XYSeries("Girls");
 // Adding data to Income and Expense Series
 for(int i=0;i<y.size();i++){
     boys.add((i+1), y2.get(i));
@@ -146,6 +146,8 @@ multiRenderer.setChartTitleTextSize(30);
 multiRenderer.setBackgroundColor(Color.WHITE);
 multiRenderer.setYLabelsAlign(Align.LEFT);
 multiRenderer.setYLabelsColor(0, Color.BLACK);
+multiRenderer.setLegendTextSize(20);
+
  gv = ChartFactory.getBarChartView(context, dataset, multiRenderer, Type.DEFAULT);
 
 if(graphType.equals("Stacked")){

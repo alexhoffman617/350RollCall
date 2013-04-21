@@ -216,7 +216,7 @@ public class StudentGraphingActivity extends Activity {
 
 
 
-			c.set(arg1, arg2+1, arg3);
+			c.set(arg1, arg2, arg3);
 
 			//Toast.makeText(getApplicationContext(), c2.get(Calendar.DAY_OF_MONTH)+ " " + c2.get(Calendar.MONTH) + " " +c2.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
 
@@ -266,11 +266,11 @@ public class StudentGraphingActivity extends Activity {
 
 		for(int i = 0; i <7; i++){
 
-		if(TempC.get(Calendar.DAY_OF_WEEK)==2 || TempC.get(Calendar.DAY_OF_WEEK)==3){}
+		if(TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY || TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){}
 
 		else{
 
-			String queryDate = "In_"+ TempC.get(Calendar.MONTH)+"_";
+			String queryDate = "In_"+ TempC.get(Calendar.MONTH)+1 +"_";
 
 			if(TempC.get(Calendar.DAY_OF_MONTH) < 10) {
 
@@ -332,7 +332,7 @@ public class StudentGraphingActivity extends Activity {
 
 			
 
-					xData.add(TempC.get(Calendar.MONTH) + "/" + TempC.get(Calendar.DAY_OF_MONTH));
+					xData.add(TempC.get(Calendar.MONTH)+1 + "/" + TempC.get(Calendar.DAY_OF_MONTH) + "/" + TempC.get(Calendar.MONTH));
 
 					 if (absent) {
 
