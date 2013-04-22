@@ -42,15 +42,6 @@ public class AgregateGraphingActivity extends Activity {
 	private BarGraph bar;
 	private GraphicalView gview;
 	private LinearLayout layout;
-
-	private ArrayList<String> xData = new ArrayList<String>();
-	private ArrayList<Integer> yData = new ArrayList<Integer>();
-	private ArrayList<Integer> yDataMax = new ArrayList<Integer>();
-	
-	
-	private ArrayList<String> x2Data = new ArrayList<String>();
-	private ArrayList<Integer> y2Data = new ArrayList<Integer>();
-	private ArrayList<Integer> y2DataMax = new ArrayList<Integer>();
 	
 	
 	private Context context;
@@ -110,12 +101,12 @@ public class AgregateGraphingActivity extends Activity {
 		ActualAttendance = (TextView) findViewById(R.id.ActualAttendance);
 		school.setText("Agregate Data");
 
-		xData = new ArrayList<String>();
-		yData = new ArrayList<Integer>();
+		ArrayList<String> xDataDefault = new ArrayList<String>();
+		ArrayList<Integer> yDataDefault = new ArrayList<Integer>();
 
 		bar = new BarGraph();
 		
-		bar.setData(yData, xData, "Standard");
+		bar.setData(yDataDefault, xDataDefault, "Standard");
 		context = this;
 		gview = bar.getView(this);
 		layout = (LinearLayout) findViewById(R.id.chart);
@@ -135,15 +126,7 @@ public class AgregateGraphingActivity extends Activity {
 					@Override
 					public void onDateChanged(DatePicker arg0, int arg1,
 							int arg2, int arg3) {
-						// Toast.makeText(getApplicationContext(), "arg 1: " +
-						// arg1 + "    arg2: " + arg2 + "    arg3: "+ arg3,
-						// Toast.LENGTH_LONG).show();
-
 						c.set(arg1, arg2, arg3);
-						// Toast.makeText(getApplicationContext(),
-						// c2.get(Calendar.DAY_OF_MONTH)+ " " +
-						// c2.get(Calendar.MONTH) + " " +c2.get(Calendar.YEAR),
-						// Toast.LENGTH_LONG).show();
 					}
 
 				});
@@ -161,7 +144,14 @@ public class AgregateGraphingActivity extends Activity {
 	}
 
 	public void onGraphBtnClick(View arg0) {
-
+		ArrayList<String> xData = new ArrayList<String>();
+		ArrayList<Integer> yData = new ArrayList<Integer>();
+	
+		ArrayList<String> x2Data = new ArrayList<String>();
+		ArrayList<Integer> y2Data = new ArrayList<Integer>();
+		
+		
+		
 		if (gradeFilterOn){
 			ArrayList<String> studentsInGrade = new ArrayList<String>();
 			for (String s: allStudents){
@@ -181,7 +171,7 @@ public class AgregateGraphingActivity extends Activity {
 					}
 				}
 			}
-			tabulateAttendance(studentsInGrade, xData, yData, yDataMax);
+			tabulateAttendance(studentsInGrade, xData, yData);
 	}
 		if (genderFilterOn){
 			ArrayList<String> studentsFemale = new ArrayList<String>();
@@ -215,21 +205,26 @@ public class AgregateGraphingActivity extends Activity {
 			}
 			
 			System.out.println("FEMALE TABULATE ATTENDANCE");
-			tabulateAttendance(studentsFemale, xData, yData, yDataMax);
+			tabulateAttendance(studentsFemale, xData, yData);
 			System.out.println("MALE TABULATE ATTENDANCE");
-			tabulateAttendance(studentsMale, x2Data, y2Data, y2DataMax);
+			tabulateAttendance(studentsMale, x2Data, y2Data);
 	}
 
 		if (noFilter){
-			tabulateAttendance(allStudents, xData, yData, yDataMax);
+			tabulateAttendance(allStudents, xData, yData);
+			System.out.println("X DATA MIDWAY IS" + xData);
+			System.out.println("Y DATA MIDWAY IS" + yData);
 		}
 		
 		
 		layout.removeView(gview);
 		
-		
+		System.out.println("NO FILTER SHOULD BE ON");
 		if(noFilter || gradeFilterOn){
-			bar.setData(yData, xData, yDataMax, "Standard");
+			System.out.println("NO FILTER");
+			System.out.println("Y DATA FINAL IS" + yData);
+			System.out.println("X DATA FINAL IS" + xData);
+			bar.setData(yData, xData, "Standard");
 		}
 		
 		if (genderFilterOn){
@@ -247,6 +242,13 @@ public class AgregateGraphingActivity extends Activity {
 		for (int i = 0; i < yData.size(); i++) {
 			daysAttended = daysAttended + yData.get(i);
 		}
+		
+		if(genderFilterOn){
+			for(int j = 0; j< y2Data.size(); j++){
+				daysAttended = daysAttended + y2Data.get(j);
+			}
+		}
+		
 		float percentage = ((float) daysAttended / (float) totalPossibleAttendance) * 100;
 		ActualAttendance.setText("Total Actual Attendance: " + daysAttended
 				+ " , " + percentage + "%");
@@ -272,63 +274,63 @@ public class AgregateGraphingActivity extends Activity {
 		allStudents = students;
 	}
 
-	public void tabulateAttendance(List<String> studentsList, List<String> xDataTemp, List<Integer> yDataTemp, List<Integer> yDataMaxTemp) {
+	public void tabulateAttendance(List<String> studentsList, ArrayList<String> xDataTemp, ArrayList<Integer> yDataTemp) {
 		final Calendar TempC = c;
 		
-		yDataMaxTemp = new ArrayList<Integer>();
-		yDataTemp = new ArrayList<Integer>();
-		xDataTemp = new ArrayList<String>();
+		yDataTemp.clear();
+		xDataTemp.clear();
+
 		
-		for (int i = 0; i < 7; i++) {
-			if (TempC.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
-					|| TempC.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
-			} else {
-				String queryDate = "In_" + TempC.get(Calendar.MONTH) + 1 + "_";
-				if (TempC.get(Calendar.DAY_OF_MONTH) < 10) {
+			if (TempC.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY || TempC.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+			} 
+			
+			else {
+				
+				//FIND QUERY DATE
+				String queryDate = "In_"+ (TempC.get(Calendar.MONTH)+1) +"_";
+				if(TempC.get(Calendar.DAY_OF_MONTH) < 10){
 					queryDate = queryDate + "0";
 				}
-				queryDate = queryDate + TempC.get(Calendar.DAY_OF_MONTH) + "_"
-						+ TempC.get(Calendar.YEAR);
-				int sum = 0;
-				for (String student : studentsList) {
-					boolean absent = false;
-					for (String activity : StudentGraphingActivity
-							.getStudentActivities(student)) {
-						ParseQuery query = new ParseQuery(activity);
-						query.whereEqualTo("Name", student);
-						List<ParseObject> queryList = new ArrayList<ParseObject>();
-						try {
-							queryList = query.find();
-							for (ParseObject s : queryList) {
-								if (s.getString(queryDate) != null
-										&& !s.getString(queryDate).equals("--")) {
-									Log.v("tag",
-											student + "   " + queryDate
-													+ "      " + activity
-													+ "     "
-													+ s.getString(queryDate));
-									absent = false;
-								}
-							}
-						} catch (com.parse.ParseException e) {
-							e.printStackTrace();
-						}
-					}
-					if (!absent) {
-						Log.v("STUDENT NOT ABSENT", student + "   " + queryDate);
-						sum++;
-					}
+				queryDate = queryDate + TempC.get(Calendar.DAY_OF_MONTH)+"_"+TempC.get(Calendar.YEAR);
+				
+				
+				
+				ArrayList<Integer[]> allData = new ArrayList<Integer[]>();
+			
+				StudentGraphingActivity.findActivities();
+				System.out.println("ACTIVITIES found");
+				
+				for (String student: studentsList){
+					System.out.println("FOR LOOP ENTERED");
+					StudentGraphingActivity.getStudentActivities(student);
+					System.out.println("STUDENTACTIVITIES FOUND");
+					StudentGraphingActivity.tabulateAttendance(c, student);
+					System.out.println("ATTENDANCE TABULATED");
+					allData.add(StudentGraphingActivity.getYData());
 				}
-				xDataTemp.add(TempC.get(Calendar.MONTH) + 1 + "/"
-						+ TempC.get(Calendar.DAY_OF_MONTH) + "/"
-						+ TempC.get(Calendar.YEAR));
-				yDataMaxTemp.add(allStudents.size());
-				yDataTemp.add(sum);
-				Log.v("TAAAAAAAG", sum + "");
-			}
-			TempC.add(Calendar.DATE, 1);
-		}
+				
+				
+				
+				
+				for(int j = 0; j < allData.get(0).length; j++){
+					int sum = 0;
+					for (int k = 0; k < allData.size(); k++){
+						sum += (allData.get(k))[j];
+					}
+					yDataTemp.add(sum);
+				}
+				
+					ArrayList<String> xDataFromStudent = StudentGraphingActivity.getXData();
+				for (int l = 0; l < xDataFromStudent.size(); l++ ){
+					xDataTemp.add(xDataFromStudent.get(l));
+				}
+					
+				System.out.println("Y DATA IS " + yDataTemp);
+				System.out.println("X DATA IS" + xDataTemp);
 
-		TempC.add(Calendar.DATE, -7);
+			}
+
+//		TempC.add(Calendar.DATE, -7);
+//		c .add(Calendar.DATE, -7);
 	}
 }

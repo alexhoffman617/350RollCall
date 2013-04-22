@@ -26,7 +26,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class StudentGraphingActivity extends Activity {
-	public String userName = " ";
+	public static String userName = " ";
 	private DatePicker graphStartDate;
 	private static List<String> activities;
 	private int startDay;
@@ -36,8 +36,8 @@ public class StudentGraphingActivity extends Activity {
 	private BarGraph bar = new BarGraph();
 	private GraphicalView gview;
 	private LinearLayout layout;
-	private ArrayList<Integer> yData;
-	private ArrayList<String> xData;
+	private static ArrayList<Integer> yData;
+	private static ArrayList<String> xData;
 	private Context context;
 	final Calendar c = Calendar.getInstance();
 	private TextView PossibleAttendance;
@@ -104,66 +104,8 @@ public class StudentGraphingActivity extends Activity {
 	public void onGraphBtnClick(View arg0){
 		System.out.println("ON GRAPH BUTTON CLICKED");
 		
+		tabulateAttendance(c, userName);
 		
-		
-		final Calendar TempC = c;
-		yData = new ArrayList<Integer>();
-		xData = new ArrayList<String>();
-		for(int i = 0; i <7; i++){
-			boolean columnExists = true;
-			if(TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY || TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){}
-			
-			
-			else{
-				String queryDate = "In_"+ (TempC.get(Calendar.MONTH)+1) +"_";
-				if(TempC.get(Calendar.DAY_OF_MONTH) < 10){
-					queryDate = queryDate + "0";
-				}
-				queryDate = queryDate + TempC.get(Calendar.DAY_OF_MONTH)+"_"+TempC.get(Calendar.YEAR);
-				
-				boolean absent = true;
-				for (String activity : activities) {
-					ParseQuery query = new ParseQuery(activity);
-					query.whereEqualTo("Name", userName);
-					List<ParseObject> queryList = new ArrayList<ParseObject>();
-					try {
-						queryList = query.find();
-						System.out.println("SIZE OF QUERY LIST IS " + queryList.size());
-						for(ParseObject student : queryList) {
-							System.out.println("STUDENT FOUND");
-							System.out.println("STUDENT: " + student.getString("NAME"));
-							System.out.println("ACTIVITY: " + activity);
-							System.out.println("QUERY DATE: " + queryDate);
-							System.out.println("VALUE IS" + student.getString(queryDate));
-							if(student.getString(queryDate) == null){
-								columnExists = false;
-							}
-							
-							if(student.getString(queryDate)!=null && !student.getString(queryDate).equals("--")){
-								System.out.println("PRESENT ON" + queryDate);
-								Log.v("tag", queryDate +"     "+ student.getString(queryDate));
-								absent = false;
-							}
-						}
-					}
-					catch(com.parse.ParseException e) {
-						e.printStackTrace();
-					}
-				}
-				if(TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SATURDAY && TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SUNDAY && columnExists){
-				xData.add(TempC.get(Calendar.MONTH)+1 + "/" + TempC.get(Calendar.DAY_OF_MONTH) + "/" + TempC.get(Calendar.MONTH));
-				if (absent) {
-					yData.add(0);
-				}
-				else {
-					yData.add(1);
-				}
-				}
-				
-			}
-			TempC.add(Calendar.DATE, 1);
-		}
-		TempC.add(Calendar.DATE, -7);
 		layout.removeView(gview);
 		bar.setData(yData, xData, "Standard");
 		gview = bar.getView(context);
@@ -243,24 +185,7 @@ public class StudentGraphingActivity extends Activity {
 	}
 	
 	public static void findActivities(){
-		
-//		ParseQuery queryToFindActivites = new ParseQuery("Activity");
-//		queryToFindActivites.findInBackground(new FindCallback() {
-//			public void done(List<ParseObject> objects, com.parse.ParseException e) {
-//				if (e == null) {
-//					list_Of_Activities = new ArrayList<String>();
-//					for (int i = 0; i < objects.size(); i++){
-//						ParseObject temp = objects.get(i);
-//						String activityName = temp.getString("DisplayName");
-//						list_Of_Activities.add(activityName);
-//						System.out.println("********ACTIVITY FOUND*********" + activityName);
-//						System.out.println(list_Of_Activities);
-//					}
-//				}
-//			}
-//		}); 
-//		System.out.println("LIST OF ACTIVITIES AFTER FIND ACTIVITIES" + list_Of_Activities);
-		
+	
 			ParseQuery query = new ParseQuery("Activity");
 			List<ParseObject> queryList = new ArrayList<ParseObject>();
 			list_Of_Activities = new ArrayList<String>();
@@ -277,8 +202,78 @@ public class StudentGraphingActivity extends Activity {
 					System.out.println("LIST OF ACTIVITIES IS" + list_Of_Activities);
 				}
 			}
-		
 	}
+		public static void tabulateAttendance(Calendar c, String userName){
+			final Calendar TempC = c;
+			yData = new ArrayList<Integer>();
+			xData = new ArrayList<String>();
+			for(int i = 0; i <7; i++){
+				boolean columnExists = true;
+				if(TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY || TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){}
+				
+				
+				else{
+					String queryDate = "In_"+ (TempC.get(Calendar.MONTH)+1) +"_";
+					if(TempC.get(Calendar.DAY_OF_MONTH) < 10){
+						queryDate = queryDate + "0";
+					}
+					queryDate = queryDate + TempC.get(Calendar.DAY_OF_MONTH)+"_"+TempC.get(Calendar.YEAR);
+					
+					boolean absent = true;
+					for (String activity : activities) {
+						ParseQuery query = new ParseQuery(activity);
+						query.whereEqualTo("Name", userName);
+						List<ParseObject> queryList = new ArrayList<ParseObject>();
+						try {
+							queryList = query.find();
+							System.out.println("SIZE OF QUERY LIST IS " + queryList.size());
+							for(ParseObject student : queryList) {
+								System.out.println("STUDENT FOUND");
+								System.out.println("STUDENT: " + student.getString("NAME"));
+								System.out.println("ACTIVITY: " + activity);
+								System.out.println("QUERY DATE: " + queryDate);
+								System.out.println("VALUE IS" + student.getString(queryDate));
+								if(student.getString(queryDate) == null){
+									columnExists = false;
+								}
+								
+								if(student.getString(queryDate)!=null && !student.getString(queryDate).equals("--")){
+									System.out.println("PRESENT ON" + queryDate);
+									Log.v("tag", queryDate +"     "+ student.getString(queryDate));
+									absent = false;
+								}
+							}
+						}
+						catch(com.parse.ParseException e) {
+							e.printStackTrace();
+						}
+					}
+					if(TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SATURDAY && TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SUNDAY && columnExists){
+					xData.add(TempC.get(Calendar.MONTH)+1 + "/" + TempC.get(Calendar.DAY_OF_MONTH) + "/" + TempC.get(Calendar.MONTH));
+					if (absent) {
+						yData.add(0);
+					}
+					else {
+						yData.add(1);
+					}
+					}
+					
+				}
+				TempC.add(Calendar.DATE, 1);
+			}
+			TempC.add(Calendar.DATE, -7);
+		}
+		
+		public static Integer[] getYData(){
+			Integer [] yDataArray = new Integer[yData.size()];
+			for (int i = 0; i < yData.size(); i++){
+				yDataArray[i] = yData.get(i);
+			}
+			return yDataArray;
+		}
 	
+		public static ArrayList<String> getXData(){
+			return xData;
+		}
 	
 }

@@ -59,8 +59,8 @@ public class StudentComentsActivity extends Activity {
 		nameDisplay =(TextView) findViewById(R.id.nameDisplay);
 		nameDisplay.setText(userName);
 	
-		PossibleAttendance = (TextView) findViewById(R.id.PossibleAttendance);
-		ActualAttendance = (TextView) findViewById(R.id.ActualAttendance);
+//		PossibleAttendance = (TextView) findViewById(R.id.PossibleAttendance);
+//		ActualAttendance = (TextView) findViewById(R.id.ActualAttendance);
 	
 
 	
