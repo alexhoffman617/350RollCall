@@ -44,6 +44,8 @@ public class StudentGraphingActivity extends Activity {
 	private TextView ActualAttendance;
 	private TextView LastDayPresent;
 	private String ldp = "FIND REAL LAST DAY PRESENT";
+	final static ArrayList<String> list_Of_Activities = new ArrayList<String>();
+
 
 	@SuppressLint("NewApi")
 	@Override
@@ -191,34 +193,12 @@ public class StudentGraphingActivity extends Activity {
 		try {
 			queryList = query.find();
 			Log.v("activities", queryList.size()+"");
-
-/**************************************/
-//			System.out.println("BEFORE ACTVITY FOUND IN STUDENT");
-//			ArrayList<String> activityList = findActivities();
-//			System.out.println("AFTER ACTVITY FOUND IN STUDENT");
-			
-//			System.out.println("This is the activity list:"+ activityList);
-
-//			for(ParseObject student : queryList) {
-//				for (String activity: activityList){
-//					if (student.getNumber(activity) != null){
-//						activities.add(activity);
-//					}
-//				}
-//			}
-
+			ArrayList<String> activityList = findActivities();
 			for(ParseObject student : queryList) {
-				if(student.getNumber("Cooking")!=null){
-					activities.add("Cooking");
-				}
-				if(student.getNumber("Tennis")!=null){
-					activities.add("Tennis");
-				}
-				if(student.getNumber("Basketball")!=null){
-					activities.add("Basketball");
-				}
-				if(student.getNumber("Swimmming")!=null){
-					activities.add("Swimming");
+				for (String activity: activityList){
+					if (student.getNumber(activity) != null){
+						activities.add(activity);
+					}
 				}
 			}
 		}
@@ -228,24 +208,51 @@ public class StudentGraphingActivity extends Activity {
 		return activities;
 	}
 	
-//	public static ArrayList<String> findActivities(){
-//		final ArrayList<String> list_Of_Activities = new ArrayList<String>();
-//		ParseQuery queryToFindActivites = new ParseQuery("Activity");
-//		queryToFindActivites.findInBackground(new FindCallback() {
-//			public void done(List<ParseObject> objects, com.parse.ParseException e) {
-//				if (e == null) {
-//					for (int i = 0; i < objects.size(); i++){
-//						System.out.println(objects.get(i));
-//						ParseObject temp = objects.get(i);
-//						String activityName = temp.getString("DisplayName");
-//						list_Of_Activities.add(activityName);
-//						System.out.println("********ACTIVITY FOUND*********" + activityName);
-//					}
-//				} else {
-//					return;
-//				}
-//			}
-//		}); 
-//		return list_Of_Activities;
-//	}
+	public static ArrayList<String> findActivities(){
+		ParseQuery queryToFindActivites = new ParseQuery("Activity");
+		queryToFindActivites.findInBackground(new FindCallback() {
+			public void done(List<ParseObject> objects, com.parse.ParseException e) {
+				if (e == null) {
+					for (int i = 0; i < objects.size(); i++){
+						System.out.println(objects.get(i));
+						ParseObject temp = objects.get(i);
+						String activityName = temp.getString("DisplayName");
+						list_Of_Activities.add(activityName);
+						System.out.println("********ACTIVITY FOUND*********" + activityName);
+					}
+				} else {
+					return;
+				}
+			}
+		}); 
+		return list_Of_Activities;
+/*********//*
+		ParseQuery query = new ParseQuery("Activity");
+		query.findInBackground(new FindCallback() {
+			public void done(List<ParseObject> objects, com.parse.ParseException e) {
+				if (e == null) {
+					listview_array= new String[objects.size()];
+		        	 for (int i = 0; i < objects.size(); i++){
+		        		 System.out.println(objects.get(i));
+		        		 ParseObject temp = objects.get(i);
+		        		 String user = temp.getString("DisplayName");
+		        		 listview_array[i] = user;
+
+		        		 
+		        	 }
+		        	 java.util.Arrays.sort(listview_array);
+		        	 for(int i=0; i<listview_array.length; i++){
+		        		 aAdapter.add(listview_array[i]);
+		        		 aAdapter.notifyDataSetChanged();
+		        	 }
+		        	 
+		         } else {
+		        	 return;
+		         }				
+			}
+		}); 
+		
+	}*/
+/********/
+	}
 }
