@@ -75,7 +75,7 @@
                 
 
                    <TextView
-            android:id="@+id/lblTextViewOne"
+            android:id="@+id/PossibleAttendance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/table_row_value1" />
@@ -91,7 +91,7 @@
                 android:background="@layout/shape" >
 
             <TextView
-            android:id="@+id/lblTextViewOne"
+            android:id="@+id/ActualAttendance"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/table_row_value2" />

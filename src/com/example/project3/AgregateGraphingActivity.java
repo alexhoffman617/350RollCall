@@ -99,7 +99,7 @@ public class AgregateGraphingActivity extends Activity {
 		school = (TextView) findViewById(R.id.schoolName);
 		PossibleAttendance = (TextView) findViewById(R.id.PossibleAttendance);
 		ActualAttendance = (TextView) findViewById(R.id.ActualAttendance);
-		school.setText("Agregate Data");
+		school.setText("Aggregate Data");
 
 		ArrayList<String> xDataDefault = new ArrayList<String>();
 		ArrayList<Integer> yDataDefault = new ArrayList<Integer>();
@@ -251,7 +251,7 @@ public class AgregateGraphingActivity extends Activity {
 		
 		float percentage = ((float) daysAttended / (float) totalPossibleAttendance) * 100;
 		ActualAttendance.setText("Total Actual Attendance: " + daysAttended
-				+ " , " + percentage + "%");
+				+ " , " + (int)percentage + "%");
 	}
 
 	public void findAllStudents() {

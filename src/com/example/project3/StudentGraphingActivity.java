@@ -118,7 +118,7 @@ public class StudentGraphingActivity extends Activity {
 		}
 		float percentage = ((float)daysAttended/(float)xData.size())*100;
 		ldp = lastDayPresent(userName);
-		ActualAttendance.setText("Total Actual Attendance: " + daysAttended + " , " + percentage + "%");
+		ActualAttendance.setText("Total Actual Attendance: " + daysAttended + " , " + (int)percentage + "%");
 		LastDayPresent.setText("Last Day Present: " + ldp);
 	}
 	public static String lastDayPresent(String student) {
@@ -146,6 +146,8 @@ public class StudentGraphingActivity extends Activity {
 						if(s.getString(date)!=null && !s.getString(date).equals("--")){
 							Log.v("tag", date +"     "+ s.getString(date));
 							absent = false;
+							String returnDate = "" + currentLastDay.get(Calendar.MONTH) +"/" +currentLastDay.get(Calendar.DATE) + "/" + currentLastDay.get(Calendar.YEAR);
+							return returnDate;
 						}
 					}
 				}

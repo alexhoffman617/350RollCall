@@ -63,10 +63,14 @@ public class ActivityGraphingActivity extends Activity {
 	GraphicalView gview;
 	LinearLayout layout;
 
+	private TextView PossibleAttendanceAct;
+	private TextView ActualAttendanceAct;
+	
 	private boolean noFilter = true;
 	private boolean genderFilterOn = false;
 	private boolean gradeFilterOn = false;
 	private int gradeLevel = 3;
+	
 	
 	public class onItemSelect implements OnItemSelectedListener {
 
@@ -135,6 +139,8 @@ public class ActivityGraphingActivity extends Activity {
 		if (extras != null) {
 		     activity = extras.getString("ActivityType");
 		}
+
+
 		Toast.makeText(getApplicationContext(), activity, Toast.LENGTH_LONG).show();
 		Log.d(TAG, activity);
 		
@@ -142,15 +148,13 @@ public class ActivityGraphingActivity extends Activity {
 		activityDisplay.setText(activity);
 	
 		findListOfStudents(activity);
+		
+		PossibleAttendanceAct = (TextView) findViewById(R.id.PossibleAttendance);
+		ActualAttendanceAct = (TextView) findViewById(R.id.ActualAttendance);
 
-		
-		
 		
 		xData = new ArrayList<String>();
 		yData = new ArrayList<Integer>();
-		
-
-		
 		
 		 bar = new BarGraph();
 
@@ -285,13 +289,31 @@ public class ActivityGraphingActivity extends Activity {
 			bar.setData(yData, xData, y2Data, "Compare");
 		}
 		
-		
-		
+
 		 gview = bar.getView(context);
 
 		 layout = (LinearLayout) findViewById(R.id.chart);
 		 
 		layout.addView(gview);
+		
+		if(PossibleAttendanceAct != null) {
+		PossibleAttendanceAct.setText("Total Possible Attendance: " + xData.size() *students.size());
+		}
+		if (ActualAttendanceAct != null) {
+			int totalPossibleAttendance = xData.size() *students.size();
+			int daysAttended = 0;
+			for (int i = 0; i < yData.size(); i++) {
+				daysAttended += yData.get(i);
+			}
+			if(genderFilterOn){
+				for(int j = 0; j< y2Data.size(); j++){
+					daysAttended = daysAttended + y2Data.get(j);
+				}
+			}
+			float percentage = ((float) daysAttended/(float) totalPossibleAttendance)*100;
+			ActualAttendanceAct.setText("Total Actual Attendance: " + daysAttended
+				+ " , " + (int)percentage + "%");
+		}
 		
 		}
 	
