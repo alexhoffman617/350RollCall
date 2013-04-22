@@ -301,10 +301,11 @@ public class ActivityGraphingActivity extends Activity {
 		for(int i = 0; i <7; i++){
 			//DO NOTHING IF NOT WEEKEND
 			int total_absences = 0;
+			boolean columnExists = true;
 			if(TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY || TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){
 			}
 			else{
-				String queryDate = "Absent_"+ TempC.get(Calendar.MONTH)+1 +"_";
+				String queryDate = "Absent_"+ (TempC.get(Calendar.MONTH)+1) +"_";
 				if(TempC.get(Calendar.DAY_OF_MONTH) < 10){
 					queryDate = queryDate + "0";
 				}
@@ -323,6 +324,9 @@ public class ActivityGraphingActivity extends Activity {
 							System.out.println("Student Not In Activity");
 						}
 						for (ParseObject studentFound : queryList){
+							if(studentFound.getString(queryDate)==null){
+								columnExists = false;
+							}
 							if(studentFound.getString(queryDate)!=null && !studentFound.getString(queryDate).equals("--")){
 								total_absences++;
 								System.out.println(total_absences + ": " + studentFound.get("Name") + " is absent on " + queryDate);
@@ -337,11 +341,10 @@ public class ActivityGraphingActivity extends Activity {
 				}
 			}
 			
-			if(TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SATURDAY && TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SUNDAY){
+			if(TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SATURDAY && TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SUNDAY && columnExists){
 				System.out.println("size of array" + studentsList.size());
 				yDataForGraph.add(studentsList.size()-total_absences);
-				xDataForGraph.add(TempC.get(Calendar.DAY_OF_WEEK)+ ", " + (TempC.get(Calendar.MONTH)+1) + "/" + TempC.get(Calendar.DAY_OF_MONTH)+ "/" + TempC.get(Calendar.YEAR));
-
+				xDataForGraph.add((TempC.get(Calendar.MONTH)+1) + "/" + TempC.get(Calendar.DAY_OF_MONTH)+ "/" + TempC.get(Calendar.YEAR));
 			}
 
 			

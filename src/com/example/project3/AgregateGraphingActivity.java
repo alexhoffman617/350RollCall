@@ -31,7 +31,6 @@ public class AgregateGraphingActivity extends Activity {
 	String userName = "";
 	private static final String TAG = "MenuActivity";
 	private DatePicker graphStartDate;
-
 	
 	private int startDay;
 	private int startMonth;
@@ -92,6 +91,7 @@ public class AgregateGraphingActivity extends Activity {
 		}
 	}
 	
+	@SuppressLint("NewApi")
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.agregategraphing);
@@ -115,12 +115,7 @@ public class AgregateGraphingActivity extends Activity {
 	layout = (LinearLayout) findViewById(R.id.chart);
 	layout.addView(gview);
 	
-
-	
 	graphStartDate = (DatePicker) findViewById(R.id.graphDateStart);
-	
-	
-
 
 	c.add(c.DAY_OF_MONTH, -7);
 
