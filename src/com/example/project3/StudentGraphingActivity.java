@@ -28,7 +28,7 @@ import android.widget.Toast;
 public class StudentGraphingActivity extends Activity {
 	public String userName = " ";
 	private DatePicker graphStartDate;
-	private List<String> activities;
+	private static List<String> activities;
 	private int startDay;
 	private int startMonth;
 	private int startYear;
@@ -44,13 +44,17 @@ public class StudentGraphingActivity extends Activity {
 	private TextView ActualAttendance;
 	private TextView LastDayPresent;
 	private String ldp = "FIND REAL LAST DAY PRESENT";
-	final static ArrayList<String> list_Of_Activities = new ArrayList<String>();
-
+	private static ArrayList<String> list_Of_Activities = new ArrayList<String>();
 
 	@SuppressLint("NewApi")
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		System.out.println("START");
+		
+		System.out.println("END");
+		
 		setContentView(R.layout.studentgraphing);
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -59,6 +63,10 @@ public class StudentGraphingActivity extends Activity {
 		Parse.initialize(this, LoginHandler.link1, LoginHandler.link2);
 		nameDisplay =(TextView) findViewById(R.id.nameDisplay);
 		nameDisplay.setText(userName);
+		
+		findActivities();
+		getStudentActivities(userName);
+		
 		xData = new ArrayList<String>();
 		yData = new ArrayList<Integer>();
 		PossibleAttendance = (TextView) findViewById(R.id.PossibleAttendance);
@@ -69,7 +77,9 @@ public class StudentGraphingActivity extends Activity {
 		context = this;
 		layout = (LinearLayout) findViewById(R.id.chart);
 		layout.addView(gview);
-		activities =getStudentActivities(userName);
+		
+		
+		
 		graphStartDate = (DatePicker) findViewById(R.id.graphDateStart);
 		c.add(c.DAY_OF_MONTH, -7);
 		startYear = c.get(Calendar.YEAR);
@@ -92,26 +102,43 @@ public class StudentGraphingActivity extends Activity {
 	}
 
 	public void onGraphBtnClick(View arg0){
+		System.out.println("ON GRAPH BUTTON CLICKED");
+		
+		
+		
 		final Calendar TempC = c;
 		yData = new ArrayList<Integer>();
 		xData = new ArrayList<String>();
 		for(int i = 0; i <7; i++){
+			
+			
+			
 			if(TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY || TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){}
+			
+			
 			else{
-				String queryDate = "In_"+ TempC.get(Calendar.MONTH)+1 +"_";
-				if(TempC.get(Calendar.DAY_OF_MONTH) < 10) {
+				String queryDate = "In_"+ (TempC.get(Calendar.MONTH)+1) +"_";
+				if(TempC.get(Calendar.DAY_OF_MONTH) < 10){
 					queryDate = queryDate + "0";
 				}
 				queryDate = queryDate + TempC.get(Calendar.DAY_OF_MONTH)+"_"+TempC.get(Calendar.YEAR);
-				boolean absent = false;
+				
+				boolean absent = true;
 				for (String activity : activities) {
 					ParseQuery query = new ParseQuery(activity);
 					query.whereEqualTo("Name", userName);
 					List<ParseObject> queryList = new ArrayList<ParseObject>();
 					try {
 						queryList = query.find();
+						System.out.println("SIZE OF QUERY LIST IS " + queryList.size());
 						for(ParseObject student : queryList) {
+							System.out.println("STUDENT FOUND");
+							System.out.println("STUDENT: " + student.getString("NAME"));
+							System.out.println("ACTIVITY: " + activity);
+							System.out.println("QUERY DATE: " + queryDate);
+							System.out.println("VALUE IS" + student.getString(queryDate));
 							if(student.getString(queryDate)!=null && !student.getString(queryDate).equals("--")){
+								System.out.println("PRESENT ON" + queryDate);
 								Log.v("tag", queryDate +"     "+ student.getString(queryDate));
 								absent = false;
 							}
@@ -148,7 +175,7 @@ public class StudentGraphingActivity extends Activity {
 		LastDayPresent.setText("Last Day Present: " + ldp);
 	}
 	public static String lastDayPresent(String student) {
-		List<String> acts = getStudentActivities(student);
+		List<String> acts = activities;
 		Calendar currentLastDay = Calendar.getInstance();
 		//////////////////REMOVE THESE WHEN POPULATED UP TO TODAY//////////////////////////////
 		currentLastDay.set(Calendar.DAY_OF_MONTH, 5);
@@ -186,16 +213,18 @@ public class StudentGraphingActivity extends Activity {
 	}
 	
 	public static List<String> getStudentActivities(String studentName) {
-		ParseQuery query = new ParseQuery("Student");
-		query.whereEqualTo("Name", studentName);
+		
+		ParseQuery query1 = new ParseQuery("Student");
+		query1.whereEqualTo("Name", studentName);
+		System.out.println("STUDENT IS" + studentName);
 		List<ParseObject> queryList = new ArrayList<ParseObject>();
-		List<String> activities = new ArrayList<String>();
+		activities = new ArrayList<String>();
 		try {
-			queryList = query.find();
-			Log.v("activities", queryList.size()+"");
-			ArrayList<String> activityList = findActivities();
+			queryList = query1.find();
+			Log.v("number of students found", queryList.size()+"");
 			for(ParseObject student : queryList) {
-				for (String activity: activityList){
+				
+				for (String activity: list_Of_Activities){
 					if (student.getNumber(activity) != null){
 						activities.add(activity);
 					}
@@ -208,23 +237,43 @@ public class StudentGraphingActivity extends Activity {
 		return activities;
 	}
 	
-	public static ArrayList<String> findActivities(){
-		ParseQuery queryToFindActivites = new ParseQuery("Activity");
-		queryToFindActivites.findInBackground(new FindCallback() {
-			public void done(List<ParseObject> objects, com.parse.ParseException e) {
-				if (e == null) {
-					for (int i = 0; i < objects.size(); i++){
-						System.out.println(objects.get(i));
-						ParseObject temp = objects.get(i);
-						String activityName = temp.getString("DisplayName");
-						list_Of_Activities.add(activityName);
-						System.out.println("********ACTIVITY FOUND*********" + activityName);
-					}
-				} else {
-					return;
+	public static void findActivities(){
+		
+//		ParseQuery queryToFindActivites = new ParseQuery("Activity");
+//		queryToFindActivites.findInBackground(new FindCallback() {
+//			public void done(List<ParseObject> objects, com.parse.ParseException e) {
+//				if (e == null) {
+//					list_Of_Activities = new ArrayList<String>();
+//					for (int i = 0; i < objects.size(); i++){
+//						ParseObject temp = objects.get(i);
+//						String activityName = temp.getString("DisplayName");
+//						list_Of_Activities.add(activityName);
+//						System.out.println("********ACTIVITY FOUND*********" + activityName);
+//						System.out.println(list_Of_Activities);
+//					}
+//				}
+//			}
+//		}); 
+//		System.out.println("LIST OF ACTIVITIES AFTER FIND ACTIVITIES" + list_Of_Activities);
+		
+			ParseQuery query = new ParseQuery("Activity");
+			List<ParseObject> queryList = new ArrayList<ParseObject>();
+			list_Of_Activities = new ArrayList<String>();
+			
+			try {
+				queryList = query.find();
+			} catch (com.parse.ParseException e) {
+				e.printStackTrace();
+			}
+			
+			for (ParseObject sObject: queryList){
+				if (sObject.getClassName() != null){
+					list_Of_Activities.add(sObject.getString("DisplayName"));
+					System.out.println("LIST OF ACTIVITIES IS" + list_Of_Activities);
 				}
 			}
-		}); 
-		return list_Of_Activities;
+		
 	}
+	
+	
 }
