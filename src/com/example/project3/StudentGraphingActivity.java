@@ -226,33 +226,5 @@ public class StudentGraphingActivity extends Activity {
 			}
 		}); 
 		return list_Of_Activities;
-/*********//*
-		ParseQuery query = new ParseQuery("Activity");
-		query.findInBackground(new FindCallback() {
-			public void done(List<ParseObject> objects, com.parse.ParseException e) {
-				if (e == null) {
-					listview_array= new String[objects.size()];
-		        	 for (int i = 0; i < objects.size(); i++){
-		        		 System.out.println(objects.get(i));
-		        		 ParseObject temp = objects.get(i);
-		        		 String user = temp.getString("DisplayName");
-		        		 listview_array[i] = user;
-
-		        		 
-		        	 }
-		        	 java.util.Arrays.sort(listview_array);
-		        	 for(int i=0; i<listview_array.length; i++){
-		        		 aAdapter.add(listview_array[i]);
-		        		 aAdapter.notifyDataSetChanged();
-		        	 }
-		        	 
-		         } else {
-		        	 return;
-		         }				
-			}
-		}); 
-		
-	}*/
-/********/
 	}
 }
