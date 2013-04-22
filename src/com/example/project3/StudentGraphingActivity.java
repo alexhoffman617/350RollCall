@@ -110,9 +110,7 @@ public class StudentGraphingActivity extends Activity {
 		yData = new ArrayList<Integer>();
 		xData = new ArrayList<String>();
 		for(int i = 0; i <7; i++){
-			
-			
-			
+			boolean columnExists = true;
 			if(TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SATURDAY || TempC.get(Calendar.DAY_OF_WEEK)==Calendar.SUNDAY){}
 			
 			
@@ -137,6 +135,10 @@ public class StudentGraphingActivity extends Activity {
 							System.out.println("ACTIVITY: " + activity);
 							System.out.println("QUERY DATE: " + queryDate);
 							System.out.println("VALUE IS" + student.getString(queryDate));
+							if(student.getString(queryDate) == null){
+								columnExists = false;
+							}
+							
 							if(student.getString(queryDate)!=null && !student.getString(queryDate).equals("--")){
 								System.out.println("PRESENT ON" + queryDate);
 								Log.v("tag", queryDate +"     "+ student.getString(queryDate));
@@ -148,6 +150,7 @@ public class StudentGraphingActivity extends Activity {
 						e.printStackTrace();
 					}
 				}
+				if(TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SATURDAY && TempC.get(Calendar.DAY_OF_WEEK)!=Calendar.SUNDAY && columnExists){
 				xData.add(TempC.get(Calendar.MONTH)+1 + "/" + TempC.get(Calendar.DAY_OF_MONTH) + "/" + TempC.get(Calendar.MONTH));
 				if (absent) {
 					yData.add(0);
@@ -155,6 +158,8 @@ public class StudentGraphingActivity extends Activity {
 				else {
 					yData.add(1);
 				}
+				}
+				
 			}
 			TempC.add(Calendar.DATE, 1);
 		}
