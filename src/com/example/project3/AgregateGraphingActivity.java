@@ -55,6 +55,9 @@ public class AgregateGraphingActivity extends Activity {
 	private boolean gradeFilterOn = false;
 	private int gradeLevel = 3;
 	
+	private int studentsFromFilter;
+
+	
 	private List<String> allStudents = new ArrayList<String>();
 
 	String[] activities = { "Cooking", "Basketball", "Swimming", "Tennis" };
@@ -172,6 +175,7 @@ public class AgregateGraphingActivity extends Activity {
 				}
 			}
 			tabulateAttendance(studentsInGrade, xData, yData);
+			studentsFromFilter = studentsInGrade.size();
 	}
 		if (genderFilterOn){
 			ArrayList<String> studentsFemale = new ArrayList<String>();
@@ -208,12 +212,15 @@ public class AgregateGraphingActivity extends Activity {
 			tabulateAttendance(studentsFemale, xData, yData);
 			System.out.println("MALE TABULATE ATTENDANCE");
 			tabulateAttendance(studentsMale, x2Data, y2Data);
+			
+			studentsFromFilter = studentsFemale.size() + studentsMale.size();
 	}
 
 		if (noFilter){
 			tabulateAttendance(allStudents, xData, yData);
 			System.out.println("X DATA MIDWAY IS" + xData);
 			System.out.println("Y DATA MIDWAY IS" + yData);
+			studentsFromFilter = allStudents.size();
 		}
 		
 		
@@ -235,7 +242,7 @@ public class AgregateGraphingActivity extends Activity {
 		gview = bar.getView(context);
 		layout = (LinearLayout) findViewById(R.id.chart);
 		layout.addView(gview);
-		PossibleAttendance.setText("Total Possible Attendance: " + xData.size()
+		PossibleAttendance.setText("Total Possible Attendance: " + studentsFromFilter*xData.size() + " of " + xData.size()
 				* allStudents.size());
 		int totalPossibleAttendance = xData.size() * allStudents.size();
 		int daysAttended = 0;
@@ -249,7 +256,7 @@ public class AgregateGraphingActivity extends Activity {
 			}
 		}
 		
-		float percentage = ((float) daysAttended / (float) totalPossibleAttendance) * 100;
+		float percentage = ((float) daysAttended / ((float) studentsFromFilter*xData.size())) * 100;
 		ActualAttendance.setText("Total Actual Attendance: " + daysAttended
 				+ " , " + (int)percentage + "%");
 	}

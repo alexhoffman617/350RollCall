@@ -145,7 +145,7 @@ multiRenderer.setLabelsTextSize(20);
 multiRenderer.setChartTitleTextSize(30);
 multiRenderer.setBackgroundColor(Color.WHITE);
 multiRenderer.setYLabelsAlign(Align.LEFT);
-multiRenderer.setYLabelsColor(0, Color.BLACK);
+multiRenderer.setYLabelsColor(0, Color.WHITE);
 multiRenderer.setLegendTextSize(20);
 
  gv = ChartFactory.getBarChartView(context, dataset, multiRenderer, Type.DEFAULT);
@@ -216,7 +216,7 @@ mRenderer.setLabelsTextSize(20);
 mRenderer.setChartTitleTextSize(30);
 mRenderer.setBackgroundColor(Color.WHITE);
 mRenderer.setYLabelsAlign(Align.LEFT);
-mRenderer.setYLabelsColor(0, Color.BLACK);
+mRenderer.setYLabelsColor(0, Color.WHITE);
 
 
 for(int i = 0; i<x.size(); i++){

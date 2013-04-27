@@ -71,6 +71,8 @@ public class ActivityGraphingActivity extends Activity {
 	private boolean gradeFilterOn = false;
 	private int gradeLevel = 3;
 	
+	private int studentsFromFilter;
+	
 	
 	public class onItemSelect implements OnItemSelectedListener {
 
@@ -235,6 +237,7 @@ public class ActivityGraphingActivity extends Activity {
 					}
 				}
 				tabulateAttendance(studentsInGrade, xData, yData);
+				studentsFromFilter = studentsInGrade.size();
 		}
 		if (genderFilterOn){
 			ArrayList<String> studentsFemale = new ArrayList<String>();
@@ -271,10 +274,13 @@ public class ActivityGraphingActivity extends Activity {
 			tabulateAttendance(studentsFemale, xData, yData);
 			System.out.println("MALE TABULATE ATTENDANCE");
 			tabulateAttendance(studentsMale, x2Data, y2Data);
+			
+			studentsFromFilter = studentsMale.size() + studentsFemale.size();
 	}
 		
 		if (noFilter){
 			tabulateAttendance(students, xData, yData);
+			studentsFromFilter = students.size() ;
 		}
 		
 		/********* Tabulating the attendance for each activity *********/
@@ -297,7 +303,8 @@ public class ActivityGraphingActivity extends Activity {
 		layout.addView(gview);
 		
 		if(PossibleAttendanceAct != null) {
-		PossibleAttendanceAct.setText("Total Possible Attendance: " + xData.size() *students.size());
+
+		PossibleAttendanceAct.setText("Total Possible Attendance: " + studentsFromFilter*5 + " of " + xData.size() *students.size());
 		}
 		if (ActualAttendanceAct != null) {
 			int totalPossibleAttendance = xData.size() *students.size();
@@ -310,7 +317,7 @@ public class ActivityGraphingActivity extends Activity {
 					daysAttended = daysAttended + y2Data.get(j);
 				}
 			}
-			float percentage = ((float) daysAttended/(float) totalPossibleAttendance)*100;
+			float percentage = ((float) daysAttended/((float) studentsFromFilter*5))*100;
 			ActualAttendanceAct.setText("Total Actual Attendance: " + daysAttended
 				+ " , " + (int)percentage + "%");
 		}
