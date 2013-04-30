@@ -58,17 +58,7 @@ public class StudentComentsActivity extends Activity {
 	
 		nameDisplay =(TextView) findViewById(R.id.nameDisplay);
 		nameDisplay.setText(userName);
-	
-//		PossibleAttendance = (TextView) findViewById(R.id.PossibleAttendance);
-//		ActualAttendance = (TextView) findViewById(R.id.ActualAttendance);
-	
-
-	
-	graphStartDate = (DatePicker) findViewById(R.id.graphDateStart);
-	
-	
-	
-	
+		graphStartDate = (DatePicker) findViewById(R.id.graphDateStart);
 
 	c.add(c.DAY_OF_MONTH, -7);
 
@@ -80,10 +70,8 @@ public class StudentComentsActivity extends Activity {
 		 
 		@Override
 		public void onDateChanged(DatePicker arg0, int arg1, int arg2, int arg3) {
-			//Toast.makeText(getApplicationContext(), "arg 1: " + arg1 + "    arg2: " + arg2 + "    arg3: "+ arg3, Toast.LENGTH_LONG).show();
 
 			c.set(arg1, arg2+1, arg3);
-			//Toast.makeText(getApplicationContext(), c2.get(Calendar.DAY_OF_MONTH)+ " " + c2.get(Calendar.MONTH) + " " +c2.get(Calendar.YEAR), Toast.LENGTH_LONG).show();
 		}
 		
 });
@@ -111,86 +99,40 @@ public class StudentComentsActivity extends Activity {
 	
 	public void onDateChangeClick(View arg0){
 		final Calendar TempC = c;
-		
 		comments = new ArrayList<String>();
-
 		List<String> activities = StudentGraphingActivity.getStudentActivities(userName);
-
-
+		
 		for(int i = 0; i <7; i++){
-
-		if(TempC.get(Calendar.DAY_OF_WEEK)==2 || TempC.get(Calendar.DAY_OF_WEEK)==3){}
-
-		else{
-
-		String queryDate = "Comment_"+ TempC.get(Calendar.MONTH)+"_";
-
-		if(TempC.get(Calendar.DAY_OF_MONTH) < 10) {
-
-		queryDate = queryDate + "0";
-
-		}
-
-		queryDate = queryDate + TempC.get(Calendar.DAY_OF_MONTH)+"_"+TempC.get(Calendar.YEAR);
-
-
-		//boolean absent = false;
-
-		for (String activity : activities) {
-
-		 
-
-		ParseQuery query = new ParseQuery(activity);
-
-		query.whereEqualTo("Name", userName);
-
-		List<ParseObject> queryList = new ArrayList<ParseObject>();
-
-
-		try {
-
-		queryList = query.find();
-
-		for(ParseObject student : queryList) {
-
-		if(student.getString(queryDate)!=null && !student.getString(queryDate).equals("--")){
-
-		Log.v("tag", queryDate +"     "+ student.getString(queryDate));
-
-		String date = TempC.get(Calendar.MONTH)+"/"+TempC.get(Calendar.DAY_OF_MONTH)+"/"+TempC.get(Calendar.YEAR);
-
-		comments.add("On "+date + " in " + activity +" - " + student.getString(queryDate));
-
-		}
-
-		}
-
-		}
-
-		catch(com.parse.ParseException e) {
-
-		e.printStackTrace();
-
-		}
+			if(TempC.get(Calendar.DAY_OF_WEEK)==2 || TempC.get(Calendar.DAY_OF_WEEK)==3){		
+				}
+			else{
+				String queryDate = "Comment_"+ TempC.get(Calendar.MONTH)+"_";
+				if(TempC.get(Calendar.DAY_OF_MONTH) < 10) {
+					queryDate = queryDate + "0";
+				}
+				queryDate = queryDate + TempC.get(Calendar.DAY_OF_MONTH)+"_"+TempC.get(Calendar.YEAR);
+	
+			for (String activity : activities) {
+				ParseQuery query = new ParseQuery(activity);
+				query.whereEqualTo("Name", userName);
+				List<ParseObject> queryList = new ArrayList<ParseObject>();
+				try {
+					queryList = query.find();
+					for(ParseObject student : queryList) {
+						if(student.getString(queryDate)!=null && !student.getString(queryDate).equals("--")){
+							Log.v("tag", queryDate +"     "+ student.getString(queryDate));
+							String date = TempC.get(Calendar.MONTH)+"/"+TempC.get(Calendar.DAY_OF_MONTH)+"/"+TempC.get(Calendar.YEAR);
+							comments.add("On "+date + " in " + activity +" - " + student.getString(queryDate));
+						}
 		
-		
-
-
-
-		}
-
-		 
-
-		}
-
-		 
-
-
-
+					}
+				}
+				catch(com.parse.ParseException e) {
+					e.printStackTrace();
+				}
+			}
+			}
 		TempC.add(Calendar.DATE, 1);
-
-
-
 
 		}
 		lv.setAdapter(new ArrayAdapter<String>(this,

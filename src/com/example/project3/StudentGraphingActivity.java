@@ -124,11 +124,13 @@ public class StudentGraphingActivity extends Activity {
 	public static String lastDayPresent(String student) {
 		List<String> acts = activities;
 		Calendar currentLastDay = Calendar.getInstance();
+		
 		//////////////////REMOVE THESE WHEN POPULATED UP TO TODAY//////////////////////////////
 		currentLastDay.set(Calendar.DAY_OF_MONTH, 5);
 		currentLastDay.set(Calendar.MONTH, 4);
 		currentLastDay.set(Calendar.YEAR, 2013);
 		///////////////////////////////////////////////////////////////////////////////////////
+		
 		boolean absent = true;
 		while (absent) {
 			String date = "In_"+ currentLastDay.get(Calendar.MONTH)+"_";
@@ -188,17 +190,17 @@ public class StudentGraphingActivity extends Activity {
 	
 	public static void findActivities(){
 	
-			ParseQuery query = new ParseQuery("Activity");
-			List<ParseObject> queryList = new ArrayList<ParseObject>();
+			ParseQuery activityQuery = new ParseQuery("Activity");
+			List<ParseObject> activityQueryList = new ArrayList<ParseObject>();
 			list_Of_Activities = new ArrayList<String>();
 			
 			try {
-				queryList = query.find();
+				activityQueryList = activityQuery.find();
 			} catch (com.parse.ParseException e) {
 				e.printStackTrace();
 			}
 			
-			for (ParseObject sObject: queryList){
+			for (ParseObject sObject: activityQueryList){
 				if (sObject.getClassName() != null){
 					list_Of_Activities.add(sObject.getString("DisplayName"));
 					System.out.println("LIST OF ACTIVITIES IS" + list_Of_Activities);

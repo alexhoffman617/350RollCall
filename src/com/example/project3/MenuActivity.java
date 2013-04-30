@@ -205,6 +205,7 @@ public class MenuActivity extends Activity implements OnClickListener {
 		public void onTextChanged(CharSequence s,
 		int start, int before, int count)
 		{
+		String stringFromText = et.getText().toString();
 		textlength = et.getText().length();
 		array_sort.clear();
 		for (int i = 0; i < listview_array.length; i++)
@@ -212,22 +213,22 @@ public class MenuActivity extends Activity implements OnClickListener {
 		if (textlength <= listview_array[i].length())
 		{
 		String[] splitname = listview_array[i].split(" ");
-		if(et.getText().toString().equalsIgnoreCase(
+		if(stringFromText.equalsIgnoreCase(
 		(String)
 		listview_array[i].subSequence(0,
 		textlength)))
 		{
 		array_sort.add(listview_array[i]);
 		                                                                                                }
-		else if(et.getText().toString().contains(" ")==false){
+		else if(stringFromText.contains(" ")==false){
 			for(int ii = 0; ii<splitname.length; ii++){
 				Log.d(TAG, splitname[ii]);
-				if(et.getText().toString().equals(
+				if(stringFromText.equals(
 						(String)
 						splitname[ii].subSequence(0,
 						textlength)))
 						{
-						Log.d(TAG, et.getText().toString() + "  should = " + splitname[ii].subSequence(0,  textlength));
+						Log.d(TAG, stringFromText + "  should = " + splitname[ii].subSequence(0,  textlength));
 						array_sort.add(listview_array[i]);
 						}}}
 		                                                                                }

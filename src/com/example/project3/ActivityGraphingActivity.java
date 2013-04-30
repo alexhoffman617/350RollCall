@@ -304,7 +304,7 @@ public class ActivityGraphingActivity extends Activity {
 		
 		if(PossibleAttendanceAct != null) {
 
-		PossibleAttendanceAct.setText("Total Possible Attendance: " + studentsFromFilter*5 + " of " + xData.size() *students.size());
+		PossibleAttendanceAct.setText("Total Possible Attendance: " + studentsFromFilter*xData.size()+ " of " + xData.size() *students.size());
 		}
 		if (ActualAttendanceAct != null) {
 			int totalPossibleAttendance = xData.size() *students.size();
@@ -317,7 +317,7 @@ public class ActivityGraphingActivity extends Activity {
 					daysAttended = daysAttended + y2Data.get(j);
 				}
 			}
-			float percentage = ((float) daysAttended/((float) studentsFromFilter*5))*100;
+			float percentage = ((float) daysAttended/((float) studentsFromFilter*xData.size()))*100;
 			ActualAttendanceAct.setText("Total Actual Attendance: " + daysAttended
 				+ " , " + (int)percentage + "%");
 		}

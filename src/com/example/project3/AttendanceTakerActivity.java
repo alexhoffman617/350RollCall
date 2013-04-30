@@ -105,9 +105,6 @@ public class AttendanceTakerActivity extends Activity {
     }
     
     public void onLoginClick(View view) {
-      //   EditText db= (EditText) findViewById (R.id.codeField);
-
-       // 		 Integer.parseInt(db.getText().toString());
     	logindb = "New 1";
     	chooseDB(logindb);
         System.out.println("DatabaseCode First Time"+DatabaseCode);
@@ -123,15 +120,11 @@ public class AttendanceTakerActivity extends Activity {
     	System.out.println("psw:"+password);
     	
     	
-    	ParseUser userObject = ParseHandler.checkLogin(username, password);
-    	
     	if(isOnline())
     	{
-    	   	if(userObject!=null){
+    	   	if(ParseHandler.checkLogin(username, password)!=null){
 	    		System.out.println("Main Act Has Object");
-	    		Intent i = new Intent(this, MainMenuActivity.class);
-	    		startActivity(i);
-		    	//startActivityForResult(i, AttendanceTakerActivity.ACTIVITY_ViewScreen);
+	    		startActivity(new Intent(this, MainMenuActivity.class));
 	
 	    	}
 	    	else{
@@ -139,22 +132,15 @@ public class AttendanceTakerActivity extends Activity {
 	    		Context context = getApplicationContext();
 	     		CharSequence text = "Login Failed! Incorrect username or password.";
 	    		int duration = Toast.LENGTH_SHORT;
-	    		Toast toast = Toast.makeText(context, text, duration);
-	    		toast.show();
+	    		Toast.makeText(context, text, duration).show();
 	    	}
     	}
     	else {
-    		
-    		Intent i = new Intent(this, MainMenuActivity.class);
     		//startActivityForResult(i, AttendanceTakerActivity.ACTIVITY_ViewScreen);
-    		startActivity(i);
+    		startActivity(new Intent(this, MainMenuActivity.class));
     	}
     }
     
-//    public void onRegisterClick(View view) {
-//    	Intent i = new Intent(this, RegistrationScreenActivity.class);
-//    	startActivity(i);
-//    }
     
     @Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
